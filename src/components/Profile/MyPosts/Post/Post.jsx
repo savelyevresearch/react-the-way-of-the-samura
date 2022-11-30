@@ -2,12 +2,13 @@ import React from 'react';
 
 import postStyleClasses from './Post.module.css';
 
-const Post = () => {
+const Post = (props) => {
   return (
     <div className={postStyleClasses.item}>
         <img src='https://cdn1.iconfinder.com/data/icons/marketing-19/100/Profile-512.png' alt='User Avatar'/>
-        Post 1
+        {props.message}
         <div>
+            <span>{`Like count: ${props.likeCount}`}</span>
             <span>Like</span>
         </div>
     </div>
