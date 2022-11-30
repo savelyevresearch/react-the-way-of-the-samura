@@ -6,7 +6,7 @@ import MyPosts from "./MyPosts/MyPosts";
 
 const Profile = () => {
   return (
-    <div className={profileStyleClasses.content}>
+    <div>
       <img
         src="https://1stwebdesigner.com/wp-content/uploads/2019/07/css-background-effects-thumb.jpg"
         alt="some image"
