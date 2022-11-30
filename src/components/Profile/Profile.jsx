@@ -2,6 +2,8 @@ import React from "react";
 
 import profileStyleClasses from "./Profile.module.css";
 
+import MyPosts from "./MyPosts/MyPosts";
+
 const Profile = () => {
   return (
     <div className={profileStyleClasses.content}>
@@ -10,14 +12,7 @@ const Profile = () => {
         alt="some image"
       />
       <div>ava + description</div>
-      <div>
-        My posts
-        <div>New post</div>
-        <div className={profileStyleClasses.posts}>
-          <div className={profileStyleClasses.item}>Post 1</div>
-          <div className={profileStyleClasses.item}>Post 2</div>
-        </div>
-      </div>
+      <MyPosts />
     </div>
   );
 };
