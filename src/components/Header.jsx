@@ -1,12 +1,12 @@
 import React from "react";
 
-import classes from './Header.module.css';
+import headerStyleClasses from './Header.module.css';
 
 const Header = () => {
   return (
-    <header className={classes.header}>
+    <header className={headerStyleClasses.header}>
       <img
-        className={classes.logoImage}
+        className={headerStyleClasses.logoImage}
         src="https://logos-download.com/wp-content/uploads/2018/02/Carolina_Panthers_logo_blue.png"
         alt="logo"
       />

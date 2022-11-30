@@ -1,10 +1,10 @@
 import React from "react";
 
-import classes from "./Profile.module.css";
+import profileStyleClasses from "./Profile.module.css";
 
 const Profile = () => {
   return (
-    <div className={classes.content}>
+    <div className={profileStyleClasses.content}>
       <img
         src="https://1stwebdesigner.com/wp-content/uploads/2019/07/css-background-effects-thumb.jpg"
         alt="some image"
@@ -13,9 +13,9 @@ const Profile = () => {
       <div>
         My posts
         <div>New post</div>
-        <div className={classes.posts}>
-          <div className={classes.item}>Post 1</div>
-          <div className={classes.item}>Post 2</div>
+        <div className={profileStyleClasses.posts}>
+          <div className={profileStyleClasses.item}>Post 1</div>
+          <div className={profileStyleClasses.item}>Post 2</div>
         </div>
       </div>
     </div>
