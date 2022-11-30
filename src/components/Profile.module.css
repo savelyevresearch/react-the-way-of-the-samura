@@ -1,0 +1,8 @@
+.content {
+    grid-area: app-content;
+    background-color: aquamarine;
+}
+
+.item {
+    color: white;
+}

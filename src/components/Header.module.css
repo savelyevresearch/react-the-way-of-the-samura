@@ -1,0 +1,9 @@
+.header {
+    grid-area: header;
+    background-color: coral;
+}
+
+.logoImage {
+    width: 100px;
+    height: 60px;
+}

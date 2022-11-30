@@ -8,23 +8,3 @@
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
 }
-
-.header {
-  grid-area: header;
-  background-color: coral;
-}
-
-.header img {
-  width: 100px;
-  height: 60px;
-} 
-
-.nav {
-  grid-area: nav;
-  background-color: brown;
-}
-
-.content {
-  grid-area: app-content;
-  background-color: aquamarine;
-}
