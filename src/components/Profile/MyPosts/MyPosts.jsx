@@ -23,8 +23,8 @@ const MyPosts = () => {
         </div>
       </div>
       <div className={myPostsStyleClasses.posts}>
-        {postsData.map((post) => (
-          <Post message={post.message} likeCount={post.likeCount}/>
+        {postsData.map((post, index) => (
+          <Post key={index} message={post.message} likeCount={post.likeCount}/>
         ))}
       </div>
     </div>

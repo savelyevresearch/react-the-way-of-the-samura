@@ -3,22 +3,8 @@ import { NavLink } from "react-router-dom";
 
 import dialogsStyleClasses from "./Dialogs.module.css";
 
-const DialogItem = (props) => {
-  return (
-    <div className={`${dialogsStyleClasses.dialog}`}>
-      <NavLink
-        className={`${props.isActive ? dialogsStyleClasses.active : ""}`}
-        to={`/dialogs/${props.userId}`}
-      >
-        {props.userFirstName}
-      </NavLink>
-    </div>
-  );
-};
-
-const Message = (props) => {
-  return <div className={dialogsStyleClasses.message}>{props.messageText}</div>;
-};
+import DialogItem from "./DialogItem/DialogItem";
+import Message from "./Message/Message";
 
 const Dialogs = (props) => {
   let dialogsData = [
@@ -39,12 +25,12 @@ const Dialogs = (props) => {
     <div className={dialogsStyleClasses.dialogs}>
       <div className={dialogsStyleClasses.dialogItems}>
         {dialogsData.map((dialogItem, index) => (
-          <DialogItem userId={dialogItem.userId} userFirstName={dialogItem.userFirstName} isActive={dialogsData.isActive}/>
+          <DialogItem key={index} userId={dialogItem.userId} userFirstName={dialogItem.userFirstName} isActive={dialogsData.isActive}/>
         ))}
       </div>
       <div className={dialogsStyleClasses.messages}>
           {messagesData.map((message, index) => (
-            <Message messageText={message.messageText} />
+            <Message key={index} messageText={message.messageText} />
           ))}
       </div>
     </div>
