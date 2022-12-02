@@ -5,12 +5,14 @@ import profileStyleClasses from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
+import { state } from "../../index.js";
+
 const Profile = () => {
   return (
     <div className={profileStyleClasses.profileContent}>
       <ProfileInfo
-        backgroundImgUrl="https://1stwebdesigner.com/wp-content/uploads/2019/07/css-background-effects-thumb.jpg"
-        backgoroundImgAlt="some image"
+        backgroundImgUrl={state.profileInfoState[0].backgroundImgUrl}
+        backgoroundImgAlt={state.profileInfoState[0].backgroundImgAlt}
       />
       <MyPosts />
     </div>
