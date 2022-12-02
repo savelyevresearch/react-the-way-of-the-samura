@@ -4,8 +4,6 @@ import { NavLink } from "react-router-dom";
 import navbarStyleClasses from "./Navbar.module.css";
 
 const Navbar = () => {
-  console.log(navbarStyleClasses);
-
   return (
     <nav className={navbarStyleClasses.nav}>
       <div className={navbarStyleClasses.item}>

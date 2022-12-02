@@ -5,7 +5,7 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-export let state = {
+let state = {
   profileInfoState: [
     {
       backgroundImgUrl:
@@ -45,6 +45,6 @@ export let state = {
 
 root.render(
   <React.StrictMode>
-    <App />
+    <App state={state}/>
   </React.StrictMode>
 );

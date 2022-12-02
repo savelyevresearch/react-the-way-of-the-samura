@@ -4,9 +4,7 @@ import myPostsStyleClasses from "./MyPosts.module.css";
 
 import Post from "./Post/Post";
 
-import { state } from "../../../index.js";
-
-const MyPosts = () => {
+const MyPosts = (props) => {
   return (
     <div className={myPostsStyleClasses.postsBlock}>
       <h3>My Posts</h3>
@@ -20,7 +18,7 @@ const MyPosts = () => {
         </div>
       </div>
       <div className={myPostsStyleClasses.posts}>
-        {state.postState.map((post, index) => (
+        {props.state.postState.map((post, index) => (
           <Post
             key={index}
             userAvatarUrl={post.userAvatarUrl}

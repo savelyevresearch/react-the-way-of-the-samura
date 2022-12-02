@@ -6,18 +6,16 @@ import dialogsStyleClasses from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 
-import { state } from "../../index.js";
-
 const Dialogs = (props) => {
   return (
     <div className={dialogsStyleClasses.dialogs}>
       <div className={dialogsStyleClasses.dialogItems}>
-        {state.dialogItemState.map((dialogItem, index) => (
+        {props.state.dialogItemState.map((dialogItem, index) => (
           <DialogItem key={index} userId={dialogItem.userId} userFirstName={dialogItem.userFirstName} isActive={dialogItem.isActive}/>
         ))}
       </div>
       <div className={dialogsStyleClasses.messages}>
-          {state.messageState.map((message, index) => (
+          {props.state.messageState.map((message, index) => (
             <Message key={index} messageText={message.messageText} />
           ))}
       </div>
