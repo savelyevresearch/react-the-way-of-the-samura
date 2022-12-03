@@ -18,7 +18,7 @@ const MyPosts = (props) => {
         </div>
       </div>
       <div className={myPostsStyleClasses.posts}>
-        {props.state.postState.map((post, index) => (
+        {props.state.map((post, index) => (
           <Post
             key={index}
             userAvatarUrl={post.userAvatarUrl}

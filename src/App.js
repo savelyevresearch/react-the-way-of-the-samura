@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./App.css";
 
@@ -20,8 +20,8 @@ const App = (props) => {
         <Navbar />
         <div className="app-wrapper-content">
           <Routes>
-            <Route exact path="/profile" element={<Profile state={props.state} />} />
-            <Route exact path="/dialogs" element={<Dialogs state={props.state}/>} />
+            <Route exact path="/profile" element={<Profile state={props.state.profileState} />} />
+            <Route exact path="/dialogs" element={<Dialogs state={props.state.dialogsState}/>} />
             <Route exact path='/news' element={<News />} />
             <Route exact path='/music' element={<Music />} />
             <Route exact path='/settings' element={<Settings />} />
