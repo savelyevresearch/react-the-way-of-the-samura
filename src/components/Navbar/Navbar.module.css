@@ -10,3 +10,10 @@
 .item a.active {
     color: gold;
 }
+.friendsBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;  
+}

@@ -9,7 +9,7 @@ export const state = {
     ],
     postState: [
       {
-        message: "Hi, how are you?",
+        message: "Hi, how are you? Today I'm learning JS",
         likeCount: 10,
         userAvatarUrl:
           "https://www.pngarts.com/files/5/User-Avatar-PNG-Free-Download.png",
@@ -36,6 +36,28 @@ export const state = {
       { messageText: "Hello, how are you?" },
       { messageText: "Wassup.." },
       { messageText: "I think that you're right in this case." },
+    ],
+  },
+  navbarState: {
+    friendsBlockState: [
+      {
+        friendAvatarUrl:
+          "https://www.pngkit.com/png/full/115-1150342_user-avatar-icon-iconos-de-mujeres-a-color.png",
+        friendAvatarAl: "some avatar",
+        friendFirstName: "Elizabeth",
+      },
+      {
+        friendAvatarUrl:
+          "https://cdn0.iconfinder.com/data/icons/unigrid-flat-human-vol-2/90/011_101_anonymous_anonym_hacker_vendetta_user_human_avatar-1024.png",
+        friendAvatarAl: "some avatar",
+        friendFirstName: "Gerbert",
+      },
+      {
+        friendAvatarUrl:
+          "https://www.shareicon.net/data/2016/08/05/806962_user_512x512.png",
+        friendAvatarAl: "some avatar",
+        friendFirstName: "Karl",
+      },
     ],
   },
 };
