@@ -1,7 +1,5 @@
-.messages {
+.message {
+    display: flex;
+    flex-direction: column;
     padding: 10px;
-}
-
-.messages .message {
-
 }
