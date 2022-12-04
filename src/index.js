@@ -3,14 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 
-import { state, addPost } from "./redux/state.js";
+import { state, addPost, updateNewPostText } from "./redux/state.js";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-/* addPost("Wake the heck up, samurai..."); */
+export const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <App state={state} addPost={addPost}/>
+    <App state={state} addPost={addPost} updateNewPostText={updateNewPostText} />
   </React.StrictMode>
 );

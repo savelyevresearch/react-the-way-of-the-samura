@@ -1,3 +1,5 @@
+import { rerenderEntireTree } from "../render.js";
+
 export const state = {
   profileState: {
     profileInfoState: [
@@ -23,6 +25,7 @@ export const state = {
         userAvatarAlt: "some avatar",
       },
     ],
+    newPostText: "Type a text...",
   },
   dialogsState: {
     dialogItemState: [
@@ -62,11 +65,21 @@ export const state = {
   },
 };
 
-export const addPost = (postMessage) => {
+export const addPost = () => {
   state.profileState.postState.push({
-    message: postMessage,
+    message: state.profileState.newPostText,
     likeCount: 0,
     userAvatarUrl: "https://www.pngarts.com/files/5/User-Avatar-PNG-Free-Download.png",
     userAvatarAlt: "some avatar",
   });
+
+  state.profileState.newPostText = "";
+
+  rerenderEntireTree(state);
+};
+
+export const updateNewPostText = (newPostText) => {
+  state.profileState.newPostText = newPostText;
+
+  rerenderEntireTree(state);
 };
