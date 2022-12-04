@@ -1,4 +1,4 @@
-import { rerenderEntireTree } from "../render.js";
+let rerenderEntireTree = (state) => { console.log('State is changed') };
 
 export const state = {
   profileState: {
@@ -40,6 +40,12 @@ export const state = {
       { messageText: "Wassup.." },
       { messageText: "I think that you're right in this case." },
     ],
+    /* messagesText: [
+      "Type a message",
+      "Type a message",
+      "Type a message",
+      "Type a message",
+    ], */
   },
   navbarState: {
     friendsBlockState: [
@@ -69,7 +75,8 @@ export const addPost = () => {
   state.profileState.postState.push({
     message: state.profileState.newPostText,
     likeCount: 0,
-    userAvatarUrl: "https://www.pngarts.com/files/5/User-Avatar-PNG-Free-Download.png",
+    userAvatarUrl:
+      "https://www.pngarts.com/files/5/User-Avatar-PNG-Free-Download.png",
     userAvatarAlt: "some avatar",
   });
 
@@ -82,4 +89,8 @@ export const updateNewPostText = (newPostText) => {
   state.profileState.newPostText = newPostText;
 
   rerenderEntireTree(state);
+};
+
+export const subscribe = (observer) => {
+  rerenderEntireTree = observer;
 };
