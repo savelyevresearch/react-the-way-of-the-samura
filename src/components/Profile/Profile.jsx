@@ -12,7 +12,7 @@ const Profile = (props) => {
         backgroundImgUrl={props.state.profileInfoState[0].backgroundImgUrl}
         backgoroundImgAlt={props.state.profileInfoState[0].backgroundImgAlt}
       />
-      <MyPosts state={props.state.postState}/>
+      <MyPosts state={props.state.postState} addPost={props.addPost}/>
     </div>
   );
 };

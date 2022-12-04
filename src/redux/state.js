@@ -61,3 +61,12 @@ export const state = {
     ],
   },
 };
+
+export const addPost = (postMessage) => {
+  state.profileState.postState.push({
+    message: postMessage,
+    likeCount: 0,
+    userAvatarUrl: "https://www.pngarts.com/files/5/User-Avatar-PNG-Free-Download.png",
+    userAvatarAlt: "some avatar",
+  });
+};
