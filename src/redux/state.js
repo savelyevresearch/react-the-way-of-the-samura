@@ -1,4 +1,6 @@
-import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
+import profileReducer from "./profileReducer.js";
+import dialogsReducer from "./dialogsReducer.js";
+import navbarReducer from "./navbarReducer.js";
 
 const store = {
   _state: {
@@ -75,63 +77,13 @@ const store = {
   _callSubscriber() {
     console.log("State is changed");
   },
-  _addPost() {
-    this._state.profileState.postState.push({
-      message: this._state.profileState.newPostText,
-      likeCount: 0,
-      userAvatarUrl:
-        "https://www.pngarts.com/files/5/User-Avatar-PNG-Free-Download.png",
-      userAvatarAlt: "some avatar",
-    });
-
-    this._state.profileState.newPostText = "";
-
-    this._callSubscriber(this._state);
-  },
-  _sendMessage() {
-    this._state.dialogsState.messageState.push({ 
-      messageText: this._state.dialogsState.messageInputField
-     });
-
-     this._state.dialogsState.messageInputField = "";
-
-     this._callSubscriber(this._state);
-  },
-  _updateNewPostText(newPostText) {
-    this._state.profileState.newPostText = newPostText;
-
-    this._callSubscriber(this._state);
-  },
-  _updateSendingMessage(messageText) {
-    this._state.dialogsState.messageInputField = messageText;
-
-    this._callSubscriber(this._state);
-  },
   dispatch(action) {
-    if (action.type == "ADD-POST") {
-      this._addPost();
-    } else if (action.type == "UPDATE-NEW-POST-TEXT") {
-      this._updateNewPostText(action.newPostText);
-    } else if (action.type == "SEND-MESSAGE") {
-      this._sendMessage();
-    } else if (action.type == "UPDATE-SENDING-MESSAGE") {
-      this._updateSendingMessage(action.messageText);
-    }
+    this._state.profileState = profileReducer(this._state.profileState, action);
+    this._state.dialogsState = dialogsReducer(this._state.dialogsState, action);
+    this._state.navbarState = navbarReducer(this._state.navbarState, action);
+
+    this._callSubscriber(this._state);
   },
 };
-
-export const addPostActionCreator = () => ({ type: "ADD-POST" });
-
-export const updateNewPostTextActionCreator = (text) => ({
-  type: "UPDATE-NEW-POST-TEXT",
-  newPostText: text,
-});
-
-export const sendMessageActionCreator = () => ({ type: "SEND-MESSAGE" });
-
-export const updateSendingMessageActionCreator = (text) => ({
-  type: "UPDATE-SENDING-MESSAGE",
-  messageText: text,
-}); 
 
 export default store;

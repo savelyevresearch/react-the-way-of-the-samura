@@ -5,7 +5,7 @@ import dialogsStyleClasses from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 
-import { sendMessageActionCreator, updateSendingMessageActionCreator } from "../../redux/state.js";
+import { sendMessageActionCreator, updateSendingMessageActionCreator } from "../../redux/dialogsReducer.js";
 
 const Dialogs = (props) => {
   const messageInputField = React.createRef();
