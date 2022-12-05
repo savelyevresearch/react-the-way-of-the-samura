@@ -1,3 +1,5 @@
+import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
+
 const store = {
   _state: {
     profileState: {
@@ -39,12 +41,7 @@ const store = {
         { messageText: "Wassup.." },
         { messageText: "I think that you're right in this case." },
       ],
-      /* messagesText: [
-        "Type a message",
-        "Type a message",
-        "Type a message",
-        "Type a message",
-      ], */
+      messageInputField: "Type a message...",
     },
     navbarState: {
       friendsBlockState: [
@@ -91,8 +88,22 @@ const store = {
 
     this._callSubscriber(this._state);
   },
+  _sendMessage() {
+    this._state.dialogsState.messageState.push({ 
+      messageText: this._state.dialogsState.messageInputField
+     });
+
+     this._state.dialogsState.messageInputField = "";
+
+     this._callSubscriber(this._state);
+  },
   _updateNewPostText(newPostText) {
     this._state.profileState.newPostText = newPostText;
+
+    this._callSubscriber(this._state);
+  },
+  _updateSendingMessage(messageText) {
+    this._state.dialogsState.messageInputField = messageText;
 
     this._callSubscriber(this._state);
   },
@@ -101,6 +112,10 @@ const store = {
       this._addPost();
     } else if (action.type == "UPDATE-NEW-POST-TEXT") {
       this._updateNewPostText(action.newPostText);
+    } else if (action.type == "SEND-MESSAGE") {
+      this._sendMessage();
+    } else if (action.type == "UPDATE-SENDING-MESSAGE") {
+      this._updateSendingMessage(action.messageText);
     }
   },
 };
@@ -111,5 +126,12 @@ export const updateNewPostTextActionCreator = (text) => ({
   type: "UPDATE-NEW-POST-TEXT",
   newPostText: text,
 });
+
+export const sendMessageActionCreator = () => ({ type: "SEND-MESSAGE" });
+
+export const updateSendingMessageActionCreator = (text) => ({
+  type: "UPDATE-SENDING-MESSAGE",
+  messageText: text,
+}); 
 
 export default store;

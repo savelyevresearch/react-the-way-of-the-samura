@@ -33,7 +33,7 @@ const App = (props) => {
             <Route
               exact
               path="/dialogs"
-              element={<Dialogs state={props.state.dialogsState} />}
+              element={<Dialogs state={props.state.dialogsState} dispatch={props.dispatch}/>}
             />
             <Route exact path="/news" element={<News />} />
             <Route exact path="/music" element={<Music />} />

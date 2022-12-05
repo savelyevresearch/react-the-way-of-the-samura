@@ -6,9 +6,9 @@ import { NavLink } from "react-router-dom";
 
 const DialogItem = (props) => {
   return (
-    <div className={`${dialogItemStyleClasses.dialog}`}>
+    <div className={dialogItemStyleClasses.dialog}>
       <NavLink
-        className={`${props.isActive ? dialogItemStyleClasses.active : ""}`}
+        className={props.isActive ? dialogItemStyleClasses.active : ""}
         to={`/dialogs/${props.userId}`}
       >
         {props.userFirstName}

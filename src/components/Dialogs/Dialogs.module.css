@@ -6,3 +6,9 @@
 .dialogItems {
     padding: 10px;
 }
+
+.messageInputField {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
