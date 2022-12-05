@@ -72,8 +72,13 @@ const store = {
   getState() {
     return this._state;
   },
-  _callSubscriber() { console.log('State is changed') },
-  addPost() {
+  subscribe(observer) {
+    this._callSubscriber = observer;
+  },
+  _callSubscriber() {
+    console.log("State is changed");
+  },
+  _addPost() {
     this._state.profileState.postState.push({
       message: this._state.profileState.newPostText,
       likeCount: 0,
@@ -81,19 +86,30 @@ const store = {
         "https://www.pngarts.com/files/5/User-Avatar-PNG-Free-Download.png",
       userAvatarAlt: "some avatar",
     });
-  
+
     this._state.profileState.newPostText = "";
-  
+
     this._callSubscriber(this._state);
   },
-  updateNewPostText(newPostText) {
+  _updateNewPostText(newPostText) {
     this._state.profileState.newPostText = newPostText;
-  
+
     this._callSubscriber(this._state);
   },
-  subscribe(observer) {
-    this._callSubscriber = observer;
+  dispatch(action) {
+    if (action.type == "ADD-POST") {
+      this._addPost();
+    } else if (action.type == "UPDATE-NEW-POST-TEXT") {
+      this._updateNewPostText(action.newPostText);
+    }
   },
 };
+
+export const addPostActionCreator = () => ({ type: "ADD-POST" });
+
+export const updateNewPostTextActionCreator = (text) => ({
+  type: "UPDATE-NEW-POST-TEXT",
+  newPostText: text,
+});
 
 export default store;

@@ -4,19 +4,19 @@ import myPostsStyleClasses from "./MyPosts.module.css";
 
 import Post from "./Post/Post";
 
+import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/state.js";
+
 const MyPosts = (props) => {
   const newPostElement = React.createRef();
 
-  const addPostHandler = () => {
-    const text = newPostElement.current.value;
-    
-    props.addPost(text);
+  const addPostHandler = () => {    
+    props.dispatch(addPostActionCreator());
   };
 
-  const textAreaValueChangeHandler = () => {
+  const onPostChangeHandler = () => {
     const text = newPostElement.current.value;
 
-    props.updateNewPostText(text);
+    props.dispatch(updateNewPostTextActionCreator());
   };
 
   return (
@@ -25,7 +25,7 @@ const MyPosts = (props) => {
       <div>
         <div>
           <textarea
-            onChange={textAreaValueChangeHandler}
+            onChange={onPostChangeHandler}
             ref={newPostElement}
             value={props.newPostText}
           ></textarea>
