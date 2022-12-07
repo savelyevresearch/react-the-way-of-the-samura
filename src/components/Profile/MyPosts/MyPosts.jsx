@@ -9,14 +9,14 @@ import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../r
 const MyPosts = (props) => {
   const newPostElement = React.createRef();
 
-  const addPostHandler = () => {    
-    props.dispatch(addPostActionCreator());
+  const addPostHandler = () => {
+    props.addPost();
   };
 
   const onPostChangeHandler = () => {
     const text = newPostElement.current.value;
 
-    props.dispatch(updateNewPostTextActionCreator(text));
+    props.updateNewPostText(text);
   };
 
   return (
@@ -35,7 +35,7 @@ const MyPosts = (props) => {
         </div>
       </div>
       <div className={myPostsStyleClasses.posts}>
-        {props.state.map((post, index) => (
+        {props.posts.map((post, index) => (
           <Post
             key={index}
             userAvatarUrl={post.userAvatarUrl}
