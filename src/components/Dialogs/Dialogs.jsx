@@ -5,25 +5,23 @@ import dialogsStyleClasses from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 
-import { sendMessageActionCreator, updateSendingMessageActionCreator } from "../../redux/dialogsReducer.js";
-
 const Dialogs = (props) => {
   const messageInputField = React.createRef();
 
   const onMessageInputFieldChangeHandler = () => {
     const text = messageInputField.current.value;
 
-    props.dispatch(updateSendingMessageActionCreator(text));
+    props.updateSendingMessage(text);
   };
 
   const sendMessageHandler = () => {
-    props.dispatch(sendMessageActionCreator());
+    props.sendMessage();
   };
 
   return (
     <div className={dialogsStyleClasses.dialogs}>
       <div className={dialogsStyleClasses.dialogItems}>
-        {props.state.dialogItemState.map((dialogItem, index) => (
+        {props.dialogItems.map((dialogItem, index) => (
           <DialogItem
             key={index}
             userId={dialogItem.userId}
@@ -33,11 +31,11 @@ const Dialogs = (props) => {
         ))}
       </div>
       <div className={dialogsStyleClasses.messages}>
-        {props.state.messageState.map((message, index) => (
+        {props.messages.map((message, index) => (
           <Message key={index} messageText={message.messageText} />
         ))}
         <div className={dialogsStyleClasses.messageInputField}>
-          <textarea ref={messageInputField} value={props.state.messageInputField} onChange={onMessageInputFieldChangeHandler}></textarea>
+          <textarea ref={messageInputField} value={props.messageInputField} onChange={onMessageInputFieldChangeHandler}></textarea>
           <button onClick={sendMessageHandler}>Send a message</button>
         </div>
       </div>

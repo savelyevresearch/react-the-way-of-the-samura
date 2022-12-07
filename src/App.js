@@ -11,6 +11,7 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 const App = (props) => {
   return (
@@ -33,7 +34,7 @@ const App = (props) => {
             <Route
               exact
               path="/dialogs"
-              element={<Dialogs state={props.state.dialogsState} dispatch={props.dispatch}/>}
+              element={<DialogsContainer dialogsState={props.state.dialogsState} dispatch={props.dispatch}/>}
             />
             <Route exact path="/news" element={<News />} />
             <Route exact path="/music" element={<Music />} />
