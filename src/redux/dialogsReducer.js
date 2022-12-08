@@ -16,23 +16,33 @@ const dialogsState = {
 
 const dialogsReducer = (state = dialogsState, action) => {
   switch (action.type) {
-    case "SEND-MESSAGE":
-      state.messageState.push({
+    case "SEND-MESSAGE": {
+      let stateCopy = { ...state };
+
+      stateCopy.dialogItemState = [...state.dialogItemState];
+      stateCopy.messageState = [...state.messageState];
+
+      stateCopy.messageState.push({
         messageText: state.messageInputField,
       });
 
-      state.messageInputField = "";
+      stateCopy.messageInputField = "";
 
-      break;
-    case "UPDATE-SENDING-MESSAGE":
-      state.messageInputField = action.messageText;
+      return stateCopy;
+    }
+    case "UPDATE-SENDING-MESSAGE": {
+      let stateCopy = { ...state };
 
-      break;
+      stateCopy.dialogItemState = [...state.dialogItemState];
+      stateCopy.messageState = [...state.messageState];
+
+      stateCopy.messageInputField = action.messageText;
+
+      return stateCopy;
+    }
     default:
       return state;
   }
-
-  return state;
 };
 
 export const sendMessageActionCreator = () => ({ type: "SEND-MESSAGE" });

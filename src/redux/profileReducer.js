@@ -25,8 +25,13 @@ const profileState = {
 
 const profileReducer = (state = profileState, action) => {
   switch (action.type) {
-    case "ADD-POST":
-      state.postState.push({
+    case "ADD-POST": {
+      let stateCopy = { ...state };
+
+      stateCopy.postState = [...state.postState];
+      stateCopy.profileInfoState = { ...state.profileInfoState };
+
+      stateCopy.postState.push({
         message: state.newPostText,
         likeCount: 0,
         userAvatarUrl:
@@ -34,18 +39,23 @@ const profileReducer = (state = profileState, action) => {
         userAvatarAlt: "some avatar",
       });
 
-      state.newPostText = "";
+      stateCopy.newPostText = "";
 
-      break;
-    case "UPDATE-NEW-POST-TEXT":
-      state.newPostText = action.newPostText;
+      return stateCopy;
+    }
+    case "UPDATE-NEW-POST-TEXT": {
+      let stateCopy = { ...state };
 
-      break;
+      stateCopy.postState = [...state.postState];
+      stateCopy.profileInfoState = { ...state.profileInfoState };
+
+      stateCopy.newPostText = action.newPostText;
+
+      return stateCopy;
+    }
     default:
       return state;
   }
-
-  return state;
 };
 
 export const addPostActionCreator = () => ({ type: "ADD-POST" });
