@@ -69,7 +69,7 @@ const Navbar = (props) => {
         </NavLink>
       </div>
       <div className={navbarStyleClasses.friendsBlock}>
-        {props.state.friendsBlockState.map((friendItem, index) => (
+        {props.friends.map((friendItem, index) => (
           <FriendItem
             key={index}
             friendAvatarUrl={friendItem.friendAvatarUrl}

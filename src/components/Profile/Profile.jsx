@@ -5,29 +5,16 @@ import profileStyleClasses from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import StoreContext from "../../StoreContext";
 
 const Profile = (props) => {
   return (
-    <StoreContext.Consumer>
-      {(store) => {
-        return (
-          <div className={profileStyleClasses.profileContent}>
-            <ProfileInfo
-              backgroundImgUrl={
-                store.getState().profileState.profileInfoState[0]
-                  .backgroundImgUrl
-              }
-              backgoroundImgAlt={
-                store.getState().profileState.profileInfoState[0]
-                  .backgroundImgAlt
-              }
-            />
-            <MyPostsContainer />
-          </div>
-        );
-      }}
-    </StoreContext.Consumer>
+    <div className={profileStyleClasses.profileContent}>
+      <ProfileInfo
+        backgroundImgUrl={props.profileInfo.backgroundImgUrl}
+        backgoroundImgAlt={props.profileInfo.backgroundImgAlt}
+      />
+      <MyPostsContainer />
+    </div>
   );
 };
 

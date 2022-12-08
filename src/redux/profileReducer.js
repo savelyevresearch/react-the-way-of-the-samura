@@ -1,11 +1,9 @@
 const profileState = {
-  profileInfoState: [
-    {
-      backgroundImgUrl:
-        "https://1stwebdesigner.com/wp-content/uploads/2019/07/css-background-effects-thumb.jpg",
-      backgroundImgAlt: "some image",
-    },
-  ],
+  profileInfoState: {
+    backgroundImgUrl:
+      "https://1stwebdesigner.com/wp-content/uploads/2019/07/css-background-effects-thumb.jpg",
+    backgroundImgAlt: "some image",
+  },
   postState: [
     {
       message: "Hi, how are you? Today I'm learning JS",
