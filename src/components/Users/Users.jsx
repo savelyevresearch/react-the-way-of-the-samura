@@ -1,47 +1,19 @@
+import axios from "axios";
 import React from "react";
 
 import usersStyleClasses from "./Users.module.css";
 
+import userPhoto from "../../assets/imgs/userAvatar.png";
+
 const Users = (props) => {
   if (props.users.length === 0) {
-    props.setUsers([
-      {
-        id: 1,
-        fullName: "John Snow",
-        status: "I am a boss",
-        location: { city: "Winterfell", country: "The 7 Kingdoms" },
-        followed: true,
-        photoUrl:
-          "https://cdn0.iconfinder.com/data/icons/avatar-15/512/ninja-512.png",
-      },
-      {
-        id: 2,
-        fullName: "Stanis Baratheon",
-        status: "I am a king",
-        location: { city: "Dragonstone", country: "The 7 Kingdoms" },
-        followed: true,
-        photoUrl:
-          "https://cdn0.iconfinder.com/data/icons/avatar-15/512/ninja-512.png",
-      },
-      {
-        id: 3,
-        fullName: "Tyrion Lannister",
-        status: "I am the smartest guy in the Westeros",
-        location: { city: "The King's Landing", country: "The 7 Kingdoms" },
-        followed: false,
-        photoUrl:
-          "https://cdn0.iconfinder.com/data/icons/avatar-15/512/ninja-512.png",
-      },
-      {
-        id: 4,
-        fullName: "Jaime Lannister",
-        status: "I am the best swordman in the Westeros",
-        location: { city: "The King's Landing", country: "The 7 Kingdoms" },
-        followed: false,
-        photoUrl:
-          "https://cdn0.iconfinder.com/data/icons/avatar-15/512/ninja-512.png",
-      },
-    ]);
+    axios
+      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .then((response) => {
+        props.setUsers(response.data.items);
+
+        console.log(response.data.items);
+      });
   }
 
   return (
@@ -53,7 +25,9 @@ const Users = (props) => {
               <div>
                 <img
                   className={usersStyleClasses.userPhoto}
-                  src={user.photoUrl}
+                  src={
+                    user.photos.small != null ? user.photos.small : userPhoto
+                  }
                 />
               </div>
               <div>
@@ -78,12 +52,12 @@ const Users = (props) => {
             </span>
             <span>
               <span>
-                <div>{user.fullName}</div>
+                <div>{user.name}</div>
                 <div>{user.status}</div>
               </span>
               <span>
-                <div>{user.location.country}</div>
-                <div>{user.location.city}</div>
+                <div>{"user.location.country"}</div>
+                <div>{"user.location.city"}</div>
               </span>
             </span>
           </div>
