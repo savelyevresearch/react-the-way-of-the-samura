@@ -15,6 +15,8 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 import NavbarContainer from "./components/Navbar/NavbarContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import Users from "./components/Users/Users";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App = (props) => {
   return (
@@ -26,6 +28,7 @@ const App = (props) => {
           <Routes>
             <Route exact path="/profile" element={<ProfileContainer />} />
             <Route exact path="/dialogs" element={<DialogsContainer />} />
+            <Route exact path="/users" element={<UsersContainer />} />
             <Route exact path="/news" element={<News />} />
             <Route exact path="/music" element={<Music />} />
             <Route exact path="/settings" element={<Settings />} />
