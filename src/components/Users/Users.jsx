@@ -6,18 +6,19 @@ import usersStyleClasses from "./Users.module.css";
 import userPhoto from "../../assets/imgs/userAvatar.png";
 
 const Users = (props) => {
-  if (props.users.length === 0) {
-    axios
-      .get("https://social-network.samuraijs.com/api/1.0/users")
-      .then((response) => {
-        props.setUsers(response.data.items);
-
-        console.log(response.data.items);
-      });
-  }
+  const getUsers = () => {
+    if (props.users.length === 0) {
+      axios
+        .get("https://social-network.samuraijs.com/api/1.0/users")
+        .then((response) => {
+          props.setUsers(response.data.items);
+        });
+    }
+  };
 
   return (
     <div>
+      <button onClick={getUsers}>Get Users</button>
       {props.users.map((user, index) => {
         return (
           <div key={index}>

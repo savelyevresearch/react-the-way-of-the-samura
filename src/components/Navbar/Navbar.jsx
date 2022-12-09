@@ -68,6 +68,18 @@ const Navbar = (props) => {
           Settings
         </NavLink>
       </div>
+      <div className={navbarStyleClasses.item}>
+        <NavLink
+          to="/users"
+          className={(navData) =>
+            navData.isActive
+              ? navbarStyleClasses.active
+              : navbarStyleClasses.item
+          }
+        >
+          Users
+        </NavLink>
+      </div>
       <div className={navbarStyleClasses.friendsBlock}>
         {props.friends.map((friendItem, index) => (
           <FriendItem
