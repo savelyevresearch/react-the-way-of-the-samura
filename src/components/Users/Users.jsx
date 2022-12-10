@@ -16,7 +16,7 @@ const Users = (props) => {
   return (
     <div>
       <div>
-        {pageNumbers.map((pageNumber) => (
+        {pageNumbers.slice(0, 5).map((pageNumber) => (
           <span
             className={`
                 ${
