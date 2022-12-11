@@ -1,9 +1,5 @@
 const profileState = {
-  profileInfoState: {
-    backgroundImgUrl:
-      "https://1stwebdesigner.com/wp-content/uploads/2019/07/css-background-effects-thumb.jpg",
-    backgroundImgAlt: "some image",
-  },
+  profileInfoState: null,
   postState: [
     {
       message: "Hi, how are you? Today I'm learning JS",
@@ -53,10 +49,18 @@ const profileReducer = (state = profileState, action) => {
 
       return stateCopy;
     }
+    case "SET-USER-PROFILE": {
+      return {
+        ...state,
+        profileInfoState: action.profile,
+      };
+    }
     default:
       return state;
   }
 };
+
+export const setUserProfileAC = (profile) => ({ type: "SET-USER-PROFILE", profile });
 
 export const addPostActionCreator = () => ({ type: "ADD-POST" });
 

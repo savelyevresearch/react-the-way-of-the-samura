@@ -10,8 +10,7 @@ const Profile = (props) => {
   return (
     <div className={profileStyleClasses.profileContent}>
       <ProfileInfo
-        backgroundImgUrl={props.profileInfo.backgroundImgUrl}
-        backgoroundImgAlt={props.profileInfo.backgroundImgAlt}
+        profileInfo={props.profileInfo}
       />
       <MyPostsContainer />
     </div>
