@@ -22,12 +22,12 @@ const App = (props) => {
         <NavbarContainer />
         <div className="app-wrapper-content">
           <Routes>
-            <Route exact path="/profile" element={<ProfileContainer />} />
-            <Route exact path="/dialogs" element={<DialogsContainer />} />
-            <Route exact path="/users" element={<UsersContainer />} />
-            <Route exact path="/news" element={<News />} />
-            <Route exact path="/music" element={<Music />} />
-            <Route exact path="/settings" element={<Settings />} />
+            <Route path="/profile/:userId" element={<ProfileContainer />} />
+            <Route path="/dialogs" element={<DialogsContainer />} />
+            <Route path="/users" element={<UsersContainer />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/music" element={<Music />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </div>
       </div>

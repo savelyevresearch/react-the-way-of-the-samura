@@ -21,6 +21,8 @@ const ProfileInfo = (props) => {
       <div className={profileInfoStyleClasses.descriptionBlock}>
         <img src={props.profileInfo.photos.large} />
         <br />
+        {props.profileInfo.fullName}
+        <br />
         {props.profileInfo.aboutMe}
       </div>
     </>
