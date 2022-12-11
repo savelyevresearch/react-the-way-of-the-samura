@@ -1,8 +1,10 @@
+import { toHaveStyle } from "@testing-library/jest-dom/dist/matchers";
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-import headerStyleClasses from './Header.module.css';
+import headerStyleClasses from "./Header.module.css";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <header className={headerStyleClasses.header}>
       <img
@@ -10,6 +12,11 @@ const Header = () => {
         src="https://logos-download.com/wp-content/uploads/2018/02/Carolina_Panthers_logo_blue.png"
         alt="logo"
       />
+      <div className={headerStyleClasses.loginBlock}>
+        {props.isAuth
+          ? <NavLink to={`/profile/${props.userId}`}>{props.login}</NavLink>
+          : <NavLink to="/login"></NavLink>}
+      </div>
     </header>
   );
 };

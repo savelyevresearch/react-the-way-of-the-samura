@@ -9,21 +9,11 @@ class ProfileAPI extends React.Component {
   componentDidMount() {
     let userId = this.props.router.params.userId;
 
-    console.log(userId);
-
-    if (!userId) {
-      axios
-        .get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
-        .then((response) => {
-          this.props.setUserProfile(response.data);
-        });
-    } else {
-      axios
-        .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-        .then((response) => {
-          this.props.setUserProfile(response.data);
-        });
-    }
+    axios
+      .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+      .then((response) => {
+        this.props.setUserProfile(response.data);
+      });
   }
 
   render() {
