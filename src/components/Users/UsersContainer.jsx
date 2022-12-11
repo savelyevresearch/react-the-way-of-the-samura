@@ -49,9 +49,7 @@ class UsersAPIComponent extends React.Component {
   render() {
     return (
       <>
-        {this.props.isFetching ? (
-          <Preloader />
-        ) : null}
+        {this.props.isFetching ? <Preloader /> : null}
         <Users
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
@@ -99,9 +97,13 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const UsersContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UsersAPIComponent);
+const UsersContainer = connect(mapStateToProps, {
+  follow: followAC,
+  unfollow: unfollowAC,
+  setUsers: setUsersAC,
+  setCurrentPage: setCurrentPageAC,
+  setTotalUsersCount: setTotalUsersCountAC,
+  toggleIsFetching: toggleIsFetchingAC,
+})(UsersAPIComponent);
 
 export default UsersContainer;

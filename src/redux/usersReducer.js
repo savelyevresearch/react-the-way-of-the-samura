@@ -1,5 +1,3 @@
-import { bindActionCreators } from "redux";
-
 const usersState = {
   users: [],
   pageSize: 5,
