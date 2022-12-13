@@ -54,7 +54,11 @@ const Users = (props) => {
               <div>
                 {user.followed ? (
                   <button
+                    disabled={props.followingInProgress.some(id => id === user.id)}
                     onClick={() => {
+                      props.toggleFollowingInProgress(true, user.id);
+
+
                       axios
                         .delete(
                           `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
@@ -81,6 +85,8 @@ const Users = (props) => {
 
                             props.unfollow(user.id);
                           }
+
+                          props.toggleFollowingInProgress(false, user.id);
                         })
                         .catch((error) => {
                           console.error(
@@ -88,6 +94,7 @@ const Users = (props) => {
                           );
 
                           props.unfollow(user.id);
+                          props.toggleFollowingInProgress(false, user.id);
                         });
                     }}
                   >
@@ -95,7 +102,11 @@ const Users = (props) => {
                   </button>
                 ) : (
                   <button
+                    disabled={props.followingInProgress.some(id => id === user.id)}
                     onClick={() => {
+
+                      props.toggleFollowingInProgress(true, user.id);
+
                       axios
                         .post(
                           `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
@@ -118,6 +129,8 @@ const Users = (props) => {
 
                             props.follow(user.id);
                           }
+
+                          props.toggleFollowingInProgress(false, user.id);
                         })
                         .catch((error) => {
                           console.error(
@@ -125,6 +138,7 @@ const Users = (props) => {
                           );
 
                           props.follow(user.id);
+                          props.toggleFollowingInProgress(false, user.id);
                         });
                     }}
                   >
