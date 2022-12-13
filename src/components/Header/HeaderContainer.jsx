@@ -7,15 +7,19 @@ import { setAuthUserDataAC } from "../../redux/authReducer";
 class HeaderRequestAPIComponent extends React.Component {
   componentDidMount() {
     axios
-      .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
+      .get("https://social-network.samuraijs.com/api/1.0/auth/me", {
         withCredentials: true,
       })
       .then((response) => {
         if (response.data.resultCode === 0) {
+          console.log("The request is authenticated");
+
           const { id, login, email } = response.data;
 
           this.props.setAuthUserData(id, login, email);
         } else {
+          console.error("The request is not authenticated");
+
           this.props.setAuthUserData(
             27077,
             "savelyevresearch",

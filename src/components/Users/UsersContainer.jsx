@@ -10,26 +10,21 @@ import {
   toggleIsFetchingAC,
 } from "../../redux/usersReducer";
 
-import axios from "axios";
-
 import Users from "./Users";
 
 import Preloader from "../common/Preloader/Preloader";
+
+import { usersAPI } from "../../api/api.js";
 
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
 
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-        { withCredentials: true }
-      )
-      .then((response) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsersCount(response.data.totalCount);
-      });
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(data.items);
+      this.props.setTotalUsersCount(data.totalCount);
+    });
   }
 
   onPageNumberChange = (pageNumber) => {
@@ -37,14 +32,10 @@ class UsersAPIComponent extends React.Component {
 
     this.props.toggleIsFetching(true);
 
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
-      )
-      .then((response) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
-      });
+    usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(data.items);
+    });
   };
 
   render() {
@@ -72,29 +63,6 @@ const mapStateToProps = (state) => {
     totalUsersCount: state.usersState.totalUsersCount,
     currentPage: state.usersState.currentPage,
     isFetching: state.usersState.isFetching,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      dispatch(followAC(userId));
-    },
-    unfollow: (userId) => {
-      dispatch(unfollowAC(userId));
-    },
-    setUsers: (users) => {
-      dispatch(setUsersAC(users));
-    },
-    setCurrentPage: (currentPage) => {
-      dispatch(setCurrentPageAC(currentPage));
-    },
-    setTotalUsersCount: (totalUsersCount) => {
-      dispatch(setTotalUsersCountAC(totalUsersCount));
-    },
-    toggleIsFetching: (isFetching) => {
-      dispatch(toggleIsFetchingAC(isFetching));
-    },
   };
 };
 

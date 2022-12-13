@@ -66,15 +66,25 @@ const Users = (props) => {
                           }
                         )
                         .then((response) => {
-                          console.log("The request is authorized");
+                          console.log("The request is authenticated");
 
                           if (response.data.resultCode === 0) {
+                            console.log(
+                              "The new state will be integrated for authenticated user"
+                            );
+
+                            props.unfollow(user.id);
+                          } else {
+                            console.log(
+                              "The new state will be integrated for unauthenticated user"
+                            );
+
                             props.unfollow(user.id);
                           }
                         })
                         .catch((error) => {
                           console.error(
-                            "An error has been appeared, but the new state wiil be integrated"
+                            "A request error has been appeared, but the new state wiil be integrated"
                           );
 
                           props.unfollow(user.id);
@@ -96,12 +106,22 @@ const Users = (props) => {
                           console.log("The request is authorized");
 
                           if (response.data.resultCode === 0) {
+                            console.log(
+                              "The new state will be integrated for authenticated user"
+                            );
+
+                            props.follow(user.id);
+                          } else {
+                            console.log(
+                              "The new state will be integrated for unauthenticated user"
+                            );
+
                             props.follow(user.id);
                           }
                         })
                         .catch((error) => {
                           console.error(
-                            "An error has been appeared, but the new state wiil be integrated"
+                            "A request error has been appeared, but the new state wiil be integrated"
                           );
 
                           props.follow(user.id);
