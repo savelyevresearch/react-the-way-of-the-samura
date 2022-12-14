@@ -18,4 +18,14 @@ export const usersAPI = {
       })
       .then((response) => response.data);
   },
+  follow: (userId) => {
+    return axiosInstance.post(
+      `https://social-network.samuraijs.com/api/1.0/follow/${userId}`
+    );
+  },
+  unfollow: (userId) => {
+    return axiosInstance.delete(
+      `https://social-network.samuraijs.com/api/1.0/follow/${userId}`
+    );
+  },
 };
