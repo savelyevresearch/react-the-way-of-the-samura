@@ -17,6 +17,7 @@ import {
 import Users from "./Users";
 
 import Preloader from "../common/Preloader/Preloader";
+import withAuthRedirect from "../../hoc/AuthRedirect";
 
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
@@ -60,6 +61,8 @@ const mapStateToProps = (state) => {
   };
 };
 
+let WithAuthRedirectComponent = withAuthRedirect(UsersAPIComponent)
+
 const UsersContainer = connect(mapStateToProps, {
   follow: followThunkCreator,
   unfollow: unfollowThunkCreator,
@@ -69,6 +72,6 @@ const UsersContainer = connect(mapStateToProps, {
   toggleIsFetching: toggleIsFetchingAC,
   toggleFollowingInProgress: toggleFollowingInProgressAC,
   getUsers: getUsersThunkCreator,
-})(UsersAPIComponent);
+})(WithAuthRedirectComponent);
 
 export default UsersContainer;

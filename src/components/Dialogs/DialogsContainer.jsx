@@ -7,13 +7,13 @@ import {
 } from "../../redux/dialogsReducer.js";
 
 import Dialogs from "./Dialogs";
+import withAuthRedirect from "../../hoc/AuthRedirect.js";
 
 const mapStateToProps = (state) => {
   return {
     dialogItems: state.dialogsState.dialogItemState,
     messages: state.dialogsState.messageState,
     messageInputField: state.dialogsState.messageInputField,
-    isAuth: state.authState.isAuth,
   };
 };
 
@@ -28,6 +28,8 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const AuthRedirectComponent = withAuthRedirect(Dialogs);
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 export default DialogsContainer;
