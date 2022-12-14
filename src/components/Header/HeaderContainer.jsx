@@ -2,31 +2,12 @@ import React from "react";
 import Header from "./Header";
 import axios from "axios";
 import { connect } from "react-redux";
-import { setAuthUserDataAC } from "../../redux/authReducer";
+import { authMeThunkCreator, setAuthUserDataAC } from "../../redux/authReducer";
+import { authAPI } from "../../api/api";
 
 class HeaderRequestAPIComponent extends React.Component {
   componentDidMount() {
-    axios
-      .get("https://social-network.samuraijs.com/api/1.0/auth/me", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          console.log("The request is authenticated");
-
-          const { id, login, email } = response.data;
-
-          this.props.setAuthUserData(id, login, email);
-        } else {
-          console.error("The request is not authenticated");
-
-          this.props.setAuthUserData(
-            27077,
-            "savelyevresearch",
-            "savelyevresearch@protonmail.com"
-          );
-        }
-      });
+    this.props.authMe();
   }
 
   render() {
@@ -45,6 +26,7 @@ const mapStateToProps = (state) => {
 
 const HeaderContainer = connect(mapStateToProps, {
   setAuthUserData: setAuthUserDataAC,
+  authMe: authMeThunkCreator,
 })(HeaderRequestAPIComponent);
 
 export default HeaderContainer;

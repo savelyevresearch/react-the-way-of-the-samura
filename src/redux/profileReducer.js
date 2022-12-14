@@ -1,3 +1,5 @@
+import { profileAPI } from "../api/api";
+
 const profileState = {
   profileInfoState: null,
   postState: [
@@ -68,5 +70,11 @@ export const updateNewPostTextActionCreator = (text) => ({
   type: "UPDATE-NEW-POST-TEXT",
   newPostText: text,
 });
+
+export const getProfileThunkCreator = (userId) => (dispatch) => {
+  profileAPI.getProfile(userId).then((data) => {
+    dispatch(setUserProfileAC(data));
+  });
+};
 
 export default profileReducer;

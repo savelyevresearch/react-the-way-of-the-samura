@@ -29,3 +29,19 @@ export const usersAPI = {
     );
   },
 };
+
+export const profileAPI = {
+  getProfile: (userId) => {
+    return axiosInstance
+      .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+      .then((response) => response.data);
+  },
+};
+
+export const authAPI = {
+  authMe: () => {
+    return axiosInstance
+      .get("https://social-network.samuraijs.com/api/1.0/auth/me")
+      .then((response) => response.data);
+  },
+};
