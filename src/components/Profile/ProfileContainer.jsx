@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Profile from "./Profile";
 import { getProfileThunkCreator, setUserProfileAC } from "../../redux/profileReducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 class ProfileAPI extends React.Component {
   componentDidMount() {
@@ -12,6 +13,14 @@ class ProfileAPI extends React.Component {
   }
 
   render() {
+    console.log(this.props.isAuth);
+
+    if (!this.props.isAuth) {
+      return (
+        <Navigate to="/login"/>
+      );
+    }
+
     return <Profile {...this.props} />;
   }
 }
@@ -19,6 +28,7 @@ class ProfileAPI extends React.Component {
 const mapStateToProps = (state) => {
   return {
     profileInfo: state.profileState.profileInfoState,
+    isAuth: state.authState.isAuth,
   };
 };
 

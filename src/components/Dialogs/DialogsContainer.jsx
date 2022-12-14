@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
     dialogItems: state.dialogsState.dialogItemState,
     messages: state.dialogsState.messageState,
     messageInputField: state.dialogsState.messageInputField,
+    isAuth: state.authState.isAuth,
   };
 };
 
