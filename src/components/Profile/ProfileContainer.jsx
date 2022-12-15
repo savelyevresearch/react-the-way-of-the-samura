@@ -6,7 +6,6 @@ import {
   setUserProfileAC,
 } from "../../redux/profileReducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import withAuthRedirect from "../../hoc/AuthRedirect";
 import { compose } from "redux";
 
