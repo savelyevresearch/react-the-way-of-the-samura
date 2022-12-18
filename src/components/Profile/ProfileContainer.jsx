@@ -41,7 +41,6 @@ function withRouter(Component) {
 
 const ProfileContainer = compose(
   connect(mapStateToProps, {
-    setUserProfile: setUserProfileAC,
     getProfile: getProfileThunkCreator,
   }),
   withRouter,

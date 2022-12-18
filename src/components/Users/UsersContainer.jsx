@@ -43,7 +43,6 @@ class UsersAPIComponent extends React.Component {
           onPageNumberChange={this.onPageNumberChange}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
-          toggleFollowingInProgress={this.props.toggleFollowingInProgress}
           followingInProgress={this.props.followingInProgress}
         />
       </>
@@ -66,11 +65,7 @@ const UsersContainer = compose(
   connect(mapStateToProps, {
     follow: followThunkCreator,
     unfollow: unfollowThunkCreator,
-    setUsers: setUsersAC,
     setCurrentPage: setCurrentPageAC,
-    setTotalUsersCount: setTotalUsersCountAC,
-    toggleIsFetching: toggleIsFetchingAC,
-    toggleFollowingInProgress: toggleFollowingInProgressAC,
     getUsers: getUsersThunkCreator,
   }),
   withAuthRedirect
