@@ -19,6 +19,7 @@ const profileState = {
     },
   ],
   newPostText: "Type a text...",
+  status: "Amici fures temporis",
 };
 
 const profileReducer = (state = profileState, action) => {
@@ -57,12 +58,21 @@ const profileReducer = (state = profileState, action) => {
         profileInfoState: action.profile,
       };
     }
+    case "SET-USER-STATUS": {
+      return {
+        ...state,
+        status: action.status,
+      };
+    }
     default:
       return state;
   }
 };
 
-export const setUserProfileAC = (profile) => ({ type: "SET-USER-PROFILE", profile });
+export const setUserProfileAC = (profile) => ({
+  type: "SET-USER-PROFILE",
+  profile,
+});
 
 export const addPostActionCreator = () => ({ type: "ADD-POST" });
 
@@ -71,10 +81,46 @@ export const updateNewPostTextActionCreator = (text) => ({
   newPostText: text,
 });
 
+export const setUserStatusAC = (status) => ({
+  type: "SET-USER-STATUS",
+  status,
+});
+
 export const getProfileThunkCreator = (userId) => (dispatch) => {
   profileAPI.getProfile(userId).then((data) => {
     dispatch(setUserProfileAC(data));
   });
+};
+
+export const getUserStatusThunkCreator = (userId) => (dispatch) => {
+  profileAPI.getStatus(userId).then((data) => {
+    dispatch(setUserStatusAC(data));
+  });
+};
+
+export const updateUserStatusThunkCreator = (status) => (dispatch) => {
+  profileAPI
+    .updateStatus(status)
+    .then((response) => {
+      if (response.data.resultCode === 0) {
+        console.log("The new state will be integrated for authenticated user");
+
+        dispatch(setUserStatusAC(status));
+      } else {
+        console.log(
+          "The new state will be integrated for unauthenticated user"
+        );
+
+        dispatch(setUserStatusAC(status));
+      }
+    })
+    .catch((error) => {
+      console.error(
+        "A request error has been appeared, but the new state wiil be integrated"
+      );
+
+      dispatch(setUserStatusAC(status));
+    });
 };
 
 export default profileReducer;

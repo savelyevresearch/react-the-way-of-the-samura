@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import Profile from "./Profile";
 import {
   getProfileThunkCreator,
-  setUserProfileAC,
+  getUserStatusThunkCreator,
+  updateUserStatusThunkCreator,
 } from "../../redux/profileReducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import withAuthRedirect from "../../hoc/AuthRedirect";
@@ -14,16 +15,26 @@ class ProfileAPI extends React.Component {
     let userId = this.props.router.params.userId;
 
     this.props.getProfile(userId);
+
+    this.props.getUserStatus(userId);
   }
 
   render() {
-    return <Profile {...this.props} />;
+    return (
+      <Profile
+        {...this.props}
+        status={this.props.status}
+        getUserStatus={this.props.getUserStatus}
+        updateUserStatus={this.props.updateUserStatus}
+      />
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     profileInfo: state.profileState.profileInfoState,
+    status: state.profileState.status,
   };
 };
 
@@ -42,6 +53,8 @@ function withRouter(Component) {
 const ProfileContainer = compose(
   connect(mapStateToProps, {
     getProfile: getProfileThunkCreator,
+    getUserStatus: getUserStatusThunkCreator,
+    updateUserStatus: updateUserStatusThunkCreator,
   }),
   withRouter,
   withAuthRedirect

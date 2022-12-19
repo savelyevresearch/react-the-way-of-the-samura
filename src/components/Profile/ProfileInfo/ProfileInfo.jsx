@@ -1,15 +1,13 @@
 import React from "react";
 import Preloader from "../../common/Preloader/Preloader";
 
-import profileInfoStyleClasses from './ProfileInfo.module.css';
+import profileInfoStyleClasses from "./ProfileInfo.module.css";
 
-import ProfileStatus from "../../ProfileStatus/ProfileStatus";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 const ProfileInfo = (props) => {
   if (!props.profileInfo) {
-    return (
-      <Preloader />
-    );
+    return <Preloader />;
   }
 
   return (
@@ -27,7 +25,11 @@ const ProfileInfo = (props) => {
         <br />
         {props.profileInfo.aboutMe}
         <br />
-        <ProfileStatus status="Hello, my friends!"/>
+        <ProfileStatus
+          status={props.status}
+          getUserStatus={props.getUserStatus}
+          updateUserStatus={props.updateUserStatus}
+        />
       </div>
     </>
   );

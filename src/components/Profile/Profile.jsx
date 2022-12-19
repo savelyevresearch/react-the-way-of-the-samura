@@ -11,6 +11,9 @@ const Profile = (props) => {
     <div className={profileStyleClasses.profileContent}>
       <ProfileInfo
         profileInfo={props.profileInfo}
+        status={props.status}
+        getUserStatus={props.getUserStatus}
+        updateUserStatus={props.updateUserStatus}
       />
       <MyPostsContainer />
     </div>
