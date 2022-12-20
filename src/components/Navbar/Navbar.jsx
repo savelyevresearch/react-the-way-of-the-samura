@@ -10,7 +10,7 @@ const Navbar = (props) => {
     <nav className={navbarStyleClasses.nav}>
       <div className={navbarStyleClasses.item}>
         <NavLink
-          to="/profile"
+          to={props.isAuth ? `/profile/${props.userId}` : "/login"}
           className={(navData) =>
             navData.isActive
               ? navbarStyleClasses.active

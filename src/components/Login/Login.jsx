@@ -1,16 +1,36 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { compose } from "redux";
 import { Field, reduxForm } from "redux-form";
-import { maxLengthCreator, requiredField } from "../../utils/validators/validators";
+import withAuthRedirect from "../../hoc/AuthRedirect";
+import { loginThunkCreator } from "../../redux/authReducer";
+import {
+  maxLengthCreator,
+  requiredField,
+} from "../../utils/validators/validators";
 import { Input } from "../common/FormControls/FormControls";
 
 const LoginForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field type="text" placeholder="Login" component={Input} name="login" validate={[requiredField, maxLengthCreator(20)]} />
+        <Field
+          type="text"
+          placeholder="Login"
+          component={Input}
+          name="login"
+          validate={[requiredField, maxLengthCreator(100)]}
+        />
       </div>
       <div>
-        <Field type="password" placeholder="Password" component={Input} name="password" validate={[requiredField, maxLengthCreator(2000)]} />
+        <Field
+          type="password"
+          placeholder="Password"
+          component={Input}
+          name="password"
+          validate={[requiredField, maxLengthCreator(2000)]}
+        />
       </div>
       <div>
         <Field type="checkbox" component={"input"} name="rememberMe" /> remember
@@ -28,9 +48,14 @@ const LoginReduxForm = reduxForm({
 })(LoginForm);
 
 const Login = (props) => {
-  const onSubmit = (formData) => {
-    console.log(formData);
+  const onSubmit = ({ login, password, rememberMe }) => {
+    console.log(login, password, rememberMe);
+    props.login(login, password, rememberMe);
   };
+
+  if (props.isAuth) {
+    return <Navigate to={`/profile/${props.userId}`} />;
+  }
 
   return (
     <div>
@@ -40,4 +65,15 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  userId: state.authState.userId,
+  isAuth: state.authState.isAuth,
+});
+
+const LoginContainer = compose(
+  connect(mapStateToProps, {
+    login: loginThunkCreator,
+  })
+)(Login);
+
+export default LoginContainer;

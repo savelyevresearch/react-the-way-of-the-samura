@@ -6,6 +6,8 @@ import Navbar from "./Navbar";
 const mapStateToProps = (state) => {
     return {
         friends: state.navbarState.friendsBlockState,
+        isAuth: state.authState.isAuth,
+        userId: state.authState.userId,
     };
 };
 

@@ -1,6 +1,7 @@
 .header {
     grid-area: header;
     background-color: coral;
+    align-items: center;
 }
 
 .logoImage {
@@ -15,4 +16,8 @@
 .loginBlock a {
     color: white;
     text-decoration: none;
+}
+
+.authSection {
+    margin: 15px;
 }
