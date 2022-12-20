@@ -5,6 +5,7 @@ import navbarReducer from "./navbarReducer.js";
 import usersReducer from "./usersReducer.js";
 import authReducer from "./authReducer.js";
 import ThunkMiddleware from "redux-thunk";
+import { reducer as formReducer } from "redux-form";
 
 const reducers = combineReducers({
     profileState: profileReducer,
@@ -12,8 +13,11 @@ const reducers = combineReducers({
     navbarState: navbarReducer,
     usersState: usersReducer,
     authState: authReducer,
+    form: formReducer,
 });
 
 const store = createStore(reducers, applyMiddleware(ThunkMiddleware));
+
+window.store = store;
 
 export default store;

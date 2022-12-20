@@ -1,4 +1,3 @@
-import { editableInputTypes } from "@testing-library/user-event/dist/utils";
 import React from "react";
 
 import profileStatusStyleClasses from "./ProfileStatus.module.css";
@@ -47,9 +46,7 @@ class ProfileStatus extends React.Component {
         {!this.state.editMode ? (
           <div>
             <span onDoubleClick={this.activateEditMode}>
-              {this.props.status != "" && this.props.status != null
-                ? this.props.status
-                : "Set a new status"}
+              {this.props.status || "Set a new status"}
             </span>
           </div>
         ) : (

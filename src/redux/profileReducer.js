@@ -19,7 +19,7 @@ const profileState = {
     },
   ],
   newPostText: "Type a text...",
-  status: "Amici fures temporis",
+  status: null,
 };
 
 const profileReducer = (state = profileState, action) => {
