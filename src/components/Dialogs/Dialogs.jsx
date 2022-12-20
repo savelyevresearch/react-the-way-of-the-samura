@@ -5,19 +5,31 @@ import dialogsStyleClasses from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import { Navigate } from "react-router-dom";
+import { Field, reduxForm } from "redux-form";
+
+const AddMessageForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div className={dialogsStyleClasses.messageInputField}>
+        <Field
+          component="textarea"
+          name="message"
+          placeholder="Enter a message"
+        />
+        <button>Send a message</button>
+      </div>
+    </form>
+  );
+};
+
+const AddMessageReduxForm = reduxForm({
+  form: "dialogAddMessageForm",
+})(AddMessageForm);
 
 const Dialogs = (props) => {
-  const messageInputField = React.createRef();
-
-  const onMessageInputFieldChangeHandler = () => {
-    const text = messageInputField.current.value;
-
-    props.updateSendingMessage(text);
-  };
-
-  const sendMessageHandler = () => {
-    props.sendMessage();
-  };
+  const addNewMessage = (values) => {
+    props.sendMessage(values.message);
+  }
 
   return (
     <div className={dialogsStyleClasses.dialogs}>
@@ -35,10 +47,7 @@ const Dialogs = (props) => {
         {props.messages.map((message, index) => (
           <Message key={index} messageText={message.messageText} />
         ))}
-        <div className={dialogsStyleClasses.messageInputField}>
-          <textarea ref={messageInputField} value={props.messageInputField} onChange={onMessageInputFieldChangeHandler}></textarea>
-          <button onClick={sendMessageHandler}>Send a message</button>
-        </div>
+        <AddMessageReduxForm onSubmit={addNewMessage} />
       </div>
     </div>
   );

@@ -14,18 +14,14 @@ const mapStateToProps = (state) => {
   return {
     dialogItems: state.dialogsState.dialogItemState,
     messages: state.dialogsState.messageState,
-    messageInputField: state.dialogsState.messageInputField,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendMessage: () => {
-      dispatch(sendMessageActionCreator());
-    },
-    updateSendingMessage: (text) => {
-      dispatch(updateSendingMessageActionCreator(text));
-    },
+    sendMessage: (message) => {
+      dispatch(sendMessageActionCreator(message));
+    }
   };
 };
 
