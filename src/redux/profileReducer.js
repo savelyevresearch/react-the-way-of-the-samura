@@ -93,23 +93,13 @@ export const updateUserStatusThunkCreator = (status) => (dispatch) => {
     .updateStatus(status)
     .then((response) => {
       if (response.data.resultCode === 0) {
-        console.log("The new state will be integrated for authenticated user");
-
         dispatch(setUserStatusAC(status));
       } else {
-        console.log(
-          "The new state will be integrated for unauthenticated user"
-        );
-
-        dispatch(setUserStatusAC(status));
+        console.log("The resultCode property is equal to 1");
       }
     })
     .catch((error) => {
-      console.error(
-        "A request error has been appeared, but the new state wiil be integrated"
-      );
-
-      dispatch(setUserStatusAC(status));
+      console.error(`Some went wrong (request error): ${error.message}`);
     });
 };
 

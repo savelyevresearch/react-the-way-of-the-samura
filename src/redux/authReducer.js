@@ -26,22 +26,11 @@ export const setAuthUserDataAC = (userId, login, email, isAuth) => ({
 export const authMeThunkCreator = () => (dispatch) => {
   authAPI.authMe().then((data) => {
     if (data.resultCode === 0) {
-      console.log("The request is authenticated");
-
       const { id, login, email } = data.data;
 
       dispatch(setAuthUserDataAC(id, login, email, true));
     } else {
-      console.error("The request is not authenticated");
-
-      dispatch(
-        setAuthUserDataAC(
-          27077,
-          "savelyevresearch",
-          "savelyevresearch@protonmail.com",
-          true
-        )
-      );
+      console.log("The resultCode property is equal to 1");
     }
   });
 };
@@ -52,21 +41,13 @@ export const loginThunkCreator =
       .login(email, password, rememberMe)
       .then((data) => {
         if (data.resultCode === 0) {
-          console.log("The request is authenticated");
-
           dispatch(authMeThunkCreator());
         } else {
-          console.error("The request is not authenticated");
-
-          dispatch(authMeThunkCreator());
+          console.log("The resultCode property is equal to 1");
         }
       })
       .catch((error) => {
-        console.error(
-          "A request error has been appeared, but the authMeThunkCreator will be called"
-        );
-
-        dispatch(authMeThunkCreator());
+        console.error(`Some went wrong (request error): ${error.message}`);
       });
   };
 
@@ -75,21 +56,13 @@ export const logoutThunkCreator = () => (dispatch) => {
     .logout()
     .then((data) => {
       if (data.resultCode === 0) {
-        console.log("The request is authenticated");
-
         dispatch(setAuthUserDataAC(null, null, null, false));
       } else {
-        console.error("The request is not authenticated");
-
-        dispatch(setAuthUserDataAC(null, null, null, false));
+        console.log("The resultCode property is equal to 1");
       }
     })
     .catch((error) => {
-      console.error(
-        "A request error has been appeared, but the new state will be integrated"
-      );
-
-      dispatch(setAuthUserDataAC(null, null, null, false));
+      console.error(`Some went wrong (request error): ${error.message}`);
     });
 };
 

@@ -95,11 +95,21 @@ export const toggleFollowingInProgressAC = (isFetching, userId) => ({
 export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
   dispatch(toggleIsFetchingAC(true));
 
-  usersAPI.getUsers(currentPage, pageSize).then((data) => {
-    dispatch(toggleIsFetchingAC(false));
-    dispatch(setUsersAC(data.items));
-    dispatch(setTotalUsersCountAC(data.totalCount));
-  });
+  usersAPI
+    .getUsers(currentPage, pageSize)
+    .then((data) => {
+      dispatch(toggleIsFetchingAC(false));
+
+      if (!data.error) {
+        dispatch(setUsersAC(data.items));
+        dispatch(setTotalUsersCountAC(data.totalCount));
+      } else {
+        console.log("The error property is equal to non-null value");
+      }
+    })
+    .catch((error) => {
+      console.error(`Some went wrong (request error): ${error.message}`);
+    });
 };
 
 export const followThunkCreator = (userId) => (dispatch) => {
@@ -108,29 +118,16 @@ export const followThunkCreator = (userId) => (dispatch) => {
   usersAPI
     .follow(userId)
     .then((response) => {
-      console.log("The request is authorized");
-
       if (response.data.resultCode === 0) {
-        console.log("The new state will be integrated for authenticated user");
-
         dispatch(followAC(userId));
       } else {
-        console.log(
-          "The new state will be integrated for unauthenticated user"
-        );
-
-        dispatch(followAC(userId));
+        console.log("The resultCode property is equal to 1");
       }
 
       dispatch(toggleFollowingInProgressAC(false, userId));
     })
     .catch((error) => {
-      console.error(
-        "A request error has been appeared, but the new state wiil be integrated"
-      );
-
-      dispatch(followAC(userId));
-      dispatch(toggleFollowingInProgressAC(false, userId));
+      console.error(`Some went wrong (request error): ${error.message}`);
     });
 };
 
@@ -140,29 +137,16 @@ export const unfollowThunkCreator = (userId) => (dispatch) => {
   usersAPI
     .follow(userId)
     .then((response) => {
-      console.log("The request is authorized");
-
       if (response.data.resultCode === 0) {
-        console.log("The new state will be integrated for authenticated user");
-
         dispatch(unfollowAC(userId));
       } else {
-        console.log(
-          "The new state will be integrated for unauthenticated user"
-        );
-
-        dispatch(unfollowAC(userId));
+        console.log("The resultCode property is equal to 1");
       }
 
       dispatch(toggleFollowingInProgressAC(false, userId));
     })
     .catch((error) => {
-      console.error(
-        "A request error has been appeared, but the new state wiil be integrated"
-      );
-
-      dispatch(unfollowAC(userId));
-      dispatch(toggleFollowingInProgressAC(false, userId));
+      console.error(`Some went wrong (request error): ${error.message}`);
     });
 };
 
