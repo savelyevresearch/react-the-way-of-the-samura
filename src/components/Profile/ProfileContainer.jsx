@@ -14,8 +14,11 @@ class ProfileAPI extends React.Component {
   componentDidMount() {
     let userId = this.props.router.params.userId;
 
-    this.props.getProfile(userId);
+    if (!userId) {
+      userId = this.props.authorizedUserId;
+    }
 
+    this.props.getProfile(userId);
     this.props.getUserStatus(userId);
   }
 
@@ -35,6 +38,8 @@ const mapStateToProps = (state) => {
   return {
     profileInfo: state.profileState.profileInfoState,
     status: state.profileState.status,
+    authorizedUserId: state.authState.userId,
+    isAuth: state.authState.isAuth,
   };
 };
 

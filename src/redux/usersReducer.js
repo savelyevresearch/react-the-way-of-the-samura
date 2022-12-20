@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { usersAPI } from "../api/api";
 
 const usersState = {
@@ -135,7 +136,7 @@ export const unfollowThunkCreator = (userId) => (dispatch) => {
   dispatch(toggleFollowingInProgressAC(true, userId));
 
   usersAPI
-    .follow(userId)
+    .unfollow(userId)
     .then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(unfollowAC(userId));

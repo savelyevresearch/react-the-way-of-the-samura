@@ -10,6 +10,7 @@ import {
   requiredField,
 } from "../../utils/validators/validators";
 import { Input } from "../common/FormControls/FormControls";
+import formControlsStyleClasses from "../common/FormControls/FormControls.module.css";
 
 const LoginForm = (props) => {
   return (
@@ -36,6 +37,11 @@ const LoginForm = (props) => {
         <Field type="checkbox" component={"input"} name="rememberMe" /> remember
         me
       </div>
+      {props.error && (
+        <div className={`${formControlsStyleClasses.summaryError}`}>
+          <span>{props.error}</span>
+        </div>
+      )}
       <div>
         <button>Login</button>
       </div>
@@ -49,7 +55,6 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props) => {
   const onSubmit = ({ login, password, rememberMe }) => {
-    console.log(login, password, rememberMe);
     props.login(login, password, rememberMe);
   };
 

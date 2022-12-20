@@ -11,3 +11,9 @@
 .errorMessage {
     color: red;
 }
+
+.summaryError span {
+    padding-right: 10px;
+    color: firebrick;
+    font-weight: bold;
+}

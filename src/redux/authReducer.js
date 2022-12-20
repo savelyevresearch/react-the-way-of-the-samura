@@ -1,4 +1,5 @@
 import { authAPI } from "../api/api";
+import { stopSubmit } from "redux-form";
 
 const authState = {
   userId: null,
@@ -43,11 +44,16 @@ export const loginThunkCreator =
         if (data.resultCode === 0) {
           dispatch(authMeThunkCreator());
         } else {
-          console.log("The resultCode property is equal to 1");
+          const message =
+            data.messages.length > 0
+              ? data.messages[0]
+              : "Something went wrong...";
+
+          dispatch(stopSubmit("login", { _error: message }));
         }
       })
       .catch((error) => {
-        console.error(`Some went wrong (request error): ${error.message}`);
+        console.error(`Something went wrong (request error): ${error.message}`);
       });
   };
 
@@ -62,7 +68,7 @@ export const logoutThunkCreator = () => (dispatch) => {
       }
     })
     .catch((error) => {
-      console.error(`Some went wrong (request error): ${error.message}`);
+      console.error(`Something went wrong (request error): ${error.message}`);
     });
 };
 
