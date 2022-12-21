@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import headerStyleClasses from "./Header.module.css";
 
 const Header = (props) => {
+  console.log(props.userId);
+
   return (
     <header className={headerStyleClasses.header}>
       <img
@@ -13,11 +15,9 @@ const Header = (props) => {
       />
       <div className={headerStyleClasses.loginBlock}>
         {props.isAuth ? (
-          <NavLink to={`/profile/${props.userId}`}>
-            <div className={headerStyleClasses.authSection}>
-              {props.login} | <button onClick={props.logout}>Logout</button>
-            </div>
-          </NavLink>
+          <div className={headerStyleClasses.authSection}>
+            <NavLink to={`/profile/${props.userId}`}>{props.login}</NavLink> | <button onClick={props.logout}>Logout</button>
+          </div>
         ) : (
           <NavLink to="/login">Login</NavLink>
         )}

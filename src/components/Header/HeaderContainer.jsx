@@ -2,13 +2,9 @@ import React from "react";
 import Header from "./Header";
 import axios from "axios";
 import { connect } from "react-redux";
-import { authMeThunkCreator, logoutThunkCreator } from "../../redux/authReducer";
+import { logoutThunkCreator } from "../../redux/authReducer";
 
 class HeaderRequestAPIComponent extends React.Component {
-  componentDidMount() {
-    this.props.authMe();
-  }
-
   render() {
     return <Header {...this.props} />;
   }
@@ -24,7 +20,6 @@ const mapStateToProps = (state) => {
 };
 
 const HeaderContainer = connect(mapStateToProps, {
-  authMe: authMeThunkCreator,
   logout: logoutThunkCreator,
 })(HeaderRequestAPIComponent);
 

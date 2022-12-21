@@ -6,17 +6,25 @@ import {
   getUserStatusThunkCreator,
   updateUserStatusThunkCreator,
 } from "../../redux/profileReducer";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import withAuthRedirect from "../../hoc/AuthRedirect";
 import { compose } from "redux";
+import withRouter from "../../hoc/withRouter";
 
 class ProfileAPI extends React.Component {
   componentDidMount() {
     let userId = this.props.router.params.userId;
 
+    console.log(`userId before condition: ${userId}`);
+
     if (!userId) {
       userId = this.props.authorizedUserId;
+
+      if (!userId) {
+        this.props.history.push("/login");
+      }
     }
+
+    console.log(`userId after condition: ${userId}`);
 
     this.props.getProfile(userId);
     this.props.getUserStatus(userId);
@@ -42,18 +50,6 @@ const mapStateToProps = (state) => {
     isAuth: state.authState.isAuth,
   };
 };
-
-function withRouter(Component) {
-  function ComponentWithRouterProp(props) {
-    let location = useLocation();
-    let navigate = useNavigate();
-    let params = useParams();
-
-    return <Component {...props} router={{ location, navigate, params }} />;
-  }
-
-  return ComponentWithRouterProp;
-}
 
 const ProfileContainer = compose(
   connect(mapStateToProps, {
