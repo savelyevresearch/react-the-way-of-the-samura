@@ -4,6 +4,7 @@ import Preloader from "../../common/Preloader/Preloader";
 import profileInfoStyleClasses from "./ProfileInfo.module.css";
 
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 
 const ProfileInfo = (props) => {
   if (!props.profileInfo) {
@@ -25,7 +26,7 @@ const ProfileInfo = (props) => {
         <br />
         {props.profileInfo.aboutMe}
         <br />
-        <ProfileStatus
+        <ProfileStatusWithHooks
           status={props.status}
           getUserStatus={props.getUserStatus}
           updateUserStatus={props.updateUserStatus}
