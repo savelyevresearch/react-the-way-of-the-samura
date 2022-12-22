@@ -19,7 +19,7 @@ import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import withAuthRedirect from "../../hoc/AuthRedirect";
 import { compose } from "redux";
-import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../redux/usersSelectors";
+import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers, getUsersSuper, getUsersSuperSelector } from "../../redux/usersSelectors";
 
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
@@ -33,8 +33,6 @@ class UsersAPIComponent extends React.Component {
   };
 
   render() {
-    console.log("Render the users page");
-
     return (
       <>
         {this.props.isFetching ? <Preloader /> : null}
@@ -53,21 +51,9 @@ class UsersAPIComponent extends React.Component {
   }
 }
 
-/* const mapStateToProps = (state) => {
-  return {
-    users: state.usersState.users,
-    pageSize: state.usersState.pageSize,
-    totalUsersCount: state.usersState.totalUsersCount,
-    currentPage: state.usersState.currentPage,
-    isFetching: state.usersState.isFetching,
-    followingInProgress: state.usersState.followingInProgress,
-  };
-}; */
-
 const mapStateToProps = (state) => {
-  console.log("mapStateToProps call for the users page");
-
   return {
+    /* users: getUsers(state), */
     users: getUsers(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),

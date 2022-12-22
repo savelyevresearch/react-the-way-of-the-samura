@@ -8,7 +8,6 @@ const usersState = {
   currentPage: 1,
   isFetching: false,
   followingInProgress: [],
-  fake: 10,
 };
 
 const usersReducer = (state = usersState, action) => {
@@ -61,11 +60,6 @@ const usersReducer = (state = usersState, action) => {
         followingInProgress: action.isFetching
           ? [...state.followingInProgress, action.userId]
           : state.followingInProgress.filter((id) => id !== action.userId),
-      };
-    case "FAKE":
-      return {
-        ...state,
-        fake: state.fake + 1,
       };
     default:
       return state;
