@@ -4,8 +4,6 @@ import { NavLink } from "react-router-dom";
 import headerStyleClasses from "./Header.module.css";
 
 const Header = (props) => {
-  console.log(props.userId);
-
   return (
     <header className={headerStyleClasses.header}>
       <img

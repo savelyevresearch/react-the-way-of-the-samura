@@ -14,8 +14,6 @@ class ProfileAPI extends React.Component {
   componentDidMount() {
     let userId = this.props.router.params.userId;
 
-    console.log(`userId before condition: ${userId}`);
-
     if (!userId) {
       userId = this.props.authorizedUserId;
 
@@ -24,13 +22,13 @@ class ProfileAPI extends React.Component {
       }
     }
 
-    console.log(`userId after condition: ${userId}`);
-
     this.props.getProfile(userId);
     this.props.getUserStatus(userId);
   }
 
   render() {
+    /* console.log("Render the profile page"); */
+
     return (
       <Profile
         {...this.props}
@@ -43,6 +41,8 @@ class ProfileAPI extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  /* console.log("mapStateToProps call for the profile page"); */
+
   return {
     profileInfo: state.profileState.profileInfoState,
     status: state.profileState.status,
