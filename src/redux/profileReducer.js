@@ -9,6 +9,7 @@ const profileState = {
       userAvatarUrl:
         "https://www.pngarts.com/files/5/User-Avatar-PNG-Free-Download.png",
       userAvatarAlt: "some avatar",
+      id: 1,
     },
     {
       message: "It's my first post",
@@ -16,6 +17,7 @@ const profileState = {
       userAvatarUrl:
         "https://www.pngarts.com/files/5/User-Avatar-PNG-Free-Download.png",
       userAvatarAlt: "some avatar",
+      id: 2,
     },
   ],
   status: null,
@@ -33,10 +35,20 @@ const profileReducer = (state = profileState, action) => {
             likeCount: 0,
             userAvatarUrl:
               "https://www.pngarts.com/files/5/User-Avatar-PNG-Free-Download.png",
-            userAvatarAlt:
-            "some avatar",
+            userAvatarAlt: "some avatar",
+            id: state.postState.length + 1,
           },
         ],
+      };
+    }
+    case "REMOVE-POST": {
+      const maxPostId = Math.max(...state.postState.map((post) => post.id));
+
+      return {
+        ...state,
+        postState: (action.postId > maxPostId) || (action.postId < 1)
+          ? state
+          : state.postState.filter((post) => post.id != action.postId),
       };
     }
     case "SET-USER-PROFILE": {
@@ -64,6 +76,11 @@ export const setUserProfileAC = (profile) => ({
 export const addPostActionCreator = (postText) => ({
   type: "ADD-POST",
   postText,
+});
+
+export const removePostActionCreator = (postId) => ({
+  type: "REMOVE-POST",
+  postId,
 });
 
 export const updateNewPostTextActionCreator = (text) => ({
