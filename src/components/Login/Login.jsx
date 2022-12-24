@@ -1,45 +1,44 @@
-import React from "react";
+import React, { createElement } from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { compose } from "redux";
 import { Field, reduxForm } from "redux-form";
-import withAuthRedirect from "../../hoc/AuthRedirect";
 import { loginThunkCreator } from "../../redux/authReducer";
 import {
   maxLengthCreator,
   requiredField,
 } from "../../utils/validators/validators";
-import { Input } from "../common/FormControls/FormControls";
+import { Input, createField } from "../common/FormControls/FormControls";
 import formControlsStyleClasses from "../common/FormControls/FormControls.module.css";
 
-const LoginForm = (props) => {
+const LoginForm = ({ handleSubmit, error }) => {
   return (
-    <form onSubmit={props.handleSubmit}>
-      <div>
-        <Field
-          type="text"
-          placeholder="Login"
-          component={Input}
-          name="login"
-          validate={[requiredField, maxLengthCreator(100)]}
-        />
-      </div>
-      <div>
-        <Field
-          type="password"
-          placeholder="Password"
-          component={Input}
-          name="password"
-          validate={[requiredField, maxLengthCreator(2000)]}
-        />
-      </div>
-      <div>
-        <Field type="checkbox" component={"input"} name="rememberMe" /> remember
-        me
-      </div>
-      {props.error && (
+    <form onSubmit={handleSubmit}>
+      {createField(
+        "Login",
+        "login",
+        [requiredField, maxLengthCreator(100)],
+        Input,
+        "text"
+      )}
+      {createField(
+        "Enter a password...",
+        "password",
+        [requiredField, maxLengthCreator(2000)],
+        Input,
+        "password"
+      )}
+      {createField(
+        null,
+        "rememberMe",
+        null,
+        "input",
+        "checkbox",
+        "Remember me"
+      )}
+      {error && (
         <div className={`${formControlsStyleClasses.summaryError}`}>
-          <span>{props.error}</span>
+          <span>{error}</span>
         </div>
       )}
       <div>

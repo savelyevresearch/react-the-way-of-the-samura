@@ -6,8 +6,8 @@ import profileInfoStyleClasses from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 
-const ProfileInfo = (props) => {
-  if (!props.profileInfo) {
+const ProfileInfo = ({ profileInfo, status, getUserStatus, updateUserStatus }) => {
+  if (!profileInfo) {
     return <Preloader />;
   }
 
@@ -20,16 +20,16 @@ const ProfileInfo = (props) => {
         height={400}
       />
       <div className={profileInfoStyleClasses.descriptionBlock}>
-        <img src={props.profileInfo.photos.large} />
+        <img src={profileInfo.photos.large} />
         <br />
-        {props.profileInfo.fullName}
+        {profileInfo.fullName}
         <br />
-        {props.profileInfo.aboutMe}
+        {profileInfo.aboutMe}
         <br />
         <ProfileStatusWithHooks
-          status={props.status}
-          getUserStatus={props.getUserStatus}
-          updateUserStatus={props.updateUserStatus}
+          status={status}
+          getUserStatus={getUserStatus}
+          updateUserStatus={updateUserStatus}
         />
       </div>
     </>

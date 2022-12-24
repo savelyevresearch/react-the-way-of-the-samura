@@ -2,13 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  followAC,
-  setUsersAC,
-  unfollowAC,
   setCurrentPageAC,
-  setTotalUsersCountAC,
-  toggleIsFetchingAC,
-  toggleFollowingInProgressAC,
   getUsersThunkCreator,
   followThunkCreator,
   unfollowThunkCreator,
@@ -23,13 +17,17 @@ import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, get
 
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    const { currentPage, pageSize } = this.props;
+
+    this.props.getUsers(currentPage, pageSize);
   }
 
   onPageNumberChange = (pageNumber) => {
+    const { pageSize } = this.props;
+
     this.props.setCurrentPage(pageNumber);
 
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    this.props.getUsers(pageNumber, pageSize);
   };
 
   render() {
@@ -53,7 +51,6 @@ class UsersAPIComponent extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    /* users: getUsers(state), */
     users: getUsers(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),

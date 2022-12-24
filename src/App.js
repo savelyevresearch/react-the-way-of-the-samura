@@ -15,9 +15,6 @@ import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/Login";
 import { connect } from "react-redux";
-import { authMeThunkCreator } from "./redux/authReducer";
-import { compose } from "redux";
-import withRouter from "./hoc/withRouter";
 import { initializeAppThunkCreator } from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
 

@@ -1,5 +1,10 @@
 import { profileAPI } from "../api/api";
 
+const ADD_POST = "profileReducer/ADD-POST";
+const REMOVE_POST = "profileReducer/REMOVE-POST";
+const SET_USER_PROFILE = "profileReducer/SET-USER-PROFILE";
+const SET_USER_STATUS = "profileReducer/SET-USER-STATUS";
+
 const profileState = {
   profileInfoState: null,
   postState: [
@@ -25,7 +30,7 @@ const profileState = {
 
 const profileReducer = (state = profileState, action) => {
   switch (action.type) {
-    case "ADD-POST": {
+    case ADD_POST: {
       return {
         ...state,
         postState: [
@@ -41,23 +46,24 @@ const profileReducer = (state = profileState, action) => {
         ],
       };
     }
-    case "REMOVE-POST": {
+    case REMOVE_POST: {
       const maxPostId = Math.max(...state.postState.map((post) => post.id));
 
       return {
         ...state,
-        postState: (action.postId > maxPostId) || (action.postId < 1)
-          ? state
-          : state.postState.filter((post) => post.id != action.postId),
+        postState:
+          action.postId > maxPostId || action.postId < 1
+            ? state
+            : state.postState.filter((post) => post.id != action.postId),
       };
     }
-    case "SET-USER-PROFILE": {
+    case SET_USER_PROFILE: {
       return {
         ...state,
         profileInfoState: action.profile,
       };
     }
-    case "SET-USER-STATUS": {
+    case SET_USER_STATUS: {
       return {
         ...state,
         status: action.status,
@@ -69,55 +75,57 @@ const profileReducer = (state = profileState, action) => {
 };
 
 export const setUserProfileAC = (profile) => ({
-  type: "SET-USER-PROFILE",
+  type: SET_USER_PROFILE,
   profile,
 });
 
 export const addPostActionCreator = (postText) => ({
-  type: "ADD-POST",
+  type: ADD_POST,
   postText,
 });
 
 export const removePostActionCreator = (postId) => ({
-  type: "REMOVE-POST",
+  type: REMOVE_POST,
   postId,
 });
 
-export const updateNewPostTextActionCreator = (text) => ({
-  type: "UPDATE-NEW-POST-TEXT",
-  newPostText: text,
-});
-
 export const setUserStatusAC = (status) => ({
-  type: "SET-USER-STATUS",
+  type: SET_USER_STATUS,
   status,
 });
 
-export const getProfileThunkCreator = (userId) => (dispatch) => {
-  profileAPI.getProfile(userId).then((data) => {
-    dispatch(setUserProfileAC(data));
-  });
+export const getProfileThunkCreator = (userId) => async (dispatch) => {
+  try {
+    const responseData = await profileAPI.getProfile(userId);
+
+    dispatch(setUserProfileAC(responseData));
+  } catch (error) {
+    console.error(`Something went wrong (request error): ${error.message}`);
+  }
 };
 
-export const getUserStatusThunkCreator = (userId) => (dispatch) => {
-  profileAPI.getStatus(userId).then((data) => {
-    dispatch(setUserStatusAC(data));
-  });
+export const getUserStatusThunkCreator = (userId) => async (dispatch) => {
+  try {
+    const responseData = await profileAPI.getStatus(userId);
+
+    dispatch(setUserStatusAC(responseData));
+  } catch (error) {
+    console.error(`Something went wrong (request error): ${error.message}`);
+  }
 };
 
-export const updateUserStatusThunkCreator = (status) => (dispatch) => {
-  profileAPI
-    .updateStatus(status)
-    .then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setUserStatusAC(status));
-      } else {
-        console.log("The resultCode property is equal to 1");
-      }
-    })
-    .catch((error) => {
-      console.error(`Some went wrong (request error): ${error.message}`);
-    });
+export const updateUserStatusThunkCreator = (status) => async (dispatch) => {
+  try {
+    const response = await profileAPI.updateStatus(status);
+
+    if (response.data.resultCode === 0) {
+      dispatch(setUserStatusAC(status));
+    } else {
+      console.log("The resultCode property is equal to 1");
+    }
+  } catch (error) {
+    console.error(`Something went wrong (request error): ${error.message}`);
+  }
 };
 
 export default profileReducer;
