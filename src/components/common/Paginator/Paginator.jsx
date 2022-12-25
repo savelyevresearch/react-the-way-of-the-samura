@@ -18,7 +18,7 @@ const Paginator = ({
 
   return (
     <div>
-      {pageNumbers.slice(0, 5).map((pageNumber) => (
+      {pageNumbers.map((pageNumber) => (
         <span
           className={`
                 ${
