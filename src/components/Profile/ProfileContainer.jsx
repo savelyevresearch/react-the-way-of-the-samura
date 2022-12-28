@@ -5,7 +5,8 @@ import {
   getProfileThunkCreator,
   getUserStatusThunkCreator,
   updateUserStatusThunkCreator,
-  savePhotoThunkCreator
+  savePhotoThunkCreator,
+  saveProfileThunkCreator,
 } from "../../redux/profileReducer";
 import withAuthRedirect from "../../hoc/AuthRedirect";
 import { compose } from "redux";
@@ -58,6 +59,7 @@ const ProfileContainer = compose(
     getUserStatus: getUserStatusThunkCreator,
     updateUserStatus: updateUserStatusThunkCreator,
     savePhoto: savePhotoThunkCreator,
+    saveProfile: saveProfileThunkCreator,
   }),
   withRouter,
   withAuthRedirect

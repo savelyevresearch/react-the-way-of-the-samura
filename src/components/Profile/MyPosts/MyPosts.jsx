@@ -34,9 +34,9 @@ const MyPosts = (props) => {
       <h3>My Posts</h3>
       <AddPostReduxForm onSubmit={addPost} />
       <div className={myPostsStyleClasses.posts}>
-        {props.posts.map((post, index) => (
+        {props.posts.map((post) => (
           <Post
-            key={index}
+            key={post.id}
             userAvatarUrl={post.userAvatarUrl}
             userAvatarAlt={post.userAvatarAlt}
             message={post.message}

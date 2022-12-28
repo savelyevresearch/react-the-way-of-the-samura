@@ -53,6 +53,9 @@ export const profileAPI = {
       },
     });
   },
+  saveProfile: (profileData) => {
+    return axiosInstance.put(`profile`, profileData);
+  },
 };
 
 export const authAPI = {

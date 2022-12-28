@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { profileAPI } from "../api/api";
 
 const ADD_POST = "profileReducer/ADD-POST";
@@ -148,6 +149,22 @@ export const savePhotoThunkCreator = (file) => async (dispatch) => {
       dispatch(setUserPhotoAC(response.data.data.photos));
     } else {
       console.log("The resultCode property is equal to 1");
+    }
+  } catch (error) {
+    console.error(`Something went wrong (request error): ${error.message}`);
+  }
+};
+
+export const saveProfileThunkCreator = (profileData) => async (dispatch, getState) => {
+  try {
+    const response = await profileAPI.saveProfile(profileData);
+
+    if (response.data.resultCode == 0) {
+      dispatch(getProfileThunkCreator(getState().authState.userId));
+    } else {
+      dispatch(stopSubmit("editProfile", { _error: response.data.messages[0] }));
+
+      return Promise.reject(response.data.messages[0]);
     }
   } catch (error) {
     console.error(`Something went wrong (request error): ${error.message}`);

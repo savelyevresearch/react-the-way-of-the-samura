@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Preloader from "../../common/Preloader/Preloader";
 
 import profileInfoStyleClasses from "./ProfileInfo.module.css";
 
-import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
+import ProfileDataForm from "./ProfileDataForm";
 import userPhoto from "../../../assets/imgs/userAvatar.png";
-import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
 
 const ProfileInfo = ({
   profileInfo,
@@ -15,7 +14,10 @@ const ProfileInfo = ({
   updateUserStatus,
   isOwner,
   savePhoto,
+  saveProfile,
 }) => {
+  const [editMode, setEditMode] = useState(false);
+
   const onAvatarPhotoSelected = (event) => {
     const inputFiles = event.target.files;
 
@@ -27,6 +29,12 @@ const ProfileInfo = ({
   if (!profileInfo) {
     return <Preloader />;
   }
+
+  const onSubmit = (formData) => {
+    saveProfile(formData).then(() => {
+      setEditMode(false);
+    });
+  };
 
   return (
     <>
@@ -43,11 +51,21 @@ const ProfileInfo = ({
           src={profileInfo.photos.large || userPhoto}
         />
         {isOwner && <input type="file" onChange={onAvatarPhotoSelected} />}
-        <br />
-        {profileInfo.fullName}
-        <br />
-        {profileInfo.aboutMe}
-        <br />
+        {editMode ? (
+          <ProfileDataForm
+            initialValues={profileInfo}
+            profileInfo={profileInfo}
+            onSubmit={onSubmit}
+          />
+        ) : (
+          <ProfileData
+            profileInfo={profileInfo}
+            isOwner={isOwner}
+            goToEditMode={() => {
+              setEditMode(true);
+            }}
+          />
+        )}
         <ProfileStatusWithHooks
           status={status}
           getUserStatus={getUserStatus}
@@ -57,5 +75,46 @@ const ProfileInfo = ({
     </>
   );
 };
+
+function ProfileData({ profileInfo, isOwner, goToEditMode }) {
+  return (
+    <div>
+      <div>{isOwner && <button onClick={goToEditMode}>Edit</button>}</div>
+      <div>
+        <b>Full name</b>: {profileInfo.fullName}
+      </div>
+      <div>
+        <b>Looking for a job</b>: {profileInfo.lookingForAJob ? "yes" : "no"}
+      </div>
+      {profileInfo.lookingForAJob && (
+        <div>
+          <b>My professional skills</b>: {profileInfo.lookingForAJobDescription}
+        </div>
+      )}
+      <div>
+        <b>About me</b>:{" "}
+        {profileInfo.aboutMe || "Enter a description about yourself"}
+      </div>
+      <div>
+        <b>Contacts</b>:{" "}
+        {Object.keys(profileInfo.contacts).map((key) => (
+          <Contact
+            key={key}
+            contactTitle={key}
+            contactValue={profileInfo.contacts[key]}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Contact({ contactTitle, contactValue }) {
+  return (
+    <div className={profileInfoStyleClasses.contact}>
+      <b>{contactTitle}</b>: {contactValue}
+    </div>
+  );
+}
 
 export default ProfileInfo;
