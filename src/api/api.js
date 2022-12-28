@@ -62,12 +62,18 @@ export const authAPI = {
   authMe: () => {
     return axiosInstance.get("auth/me").then((response) => response.data);
   },
-  login: (email, password, rememberMe = false) => {
+  login: (email, password, rememberMe = false, captcha = null) => {
     return axiosInstance
       .post("auth/login", { email, password, rememberMe })
       .then((response) => response.data);
   },
   logout: () => {
     return axiosInstance.delete("auth/login").then((response) => response.data);
+  },
+};
+
+export const securityAPI = {
+  getCaptchaUrl: () => {
+    return axiosInstance.get("security/get-captcha-url");
   },
 };

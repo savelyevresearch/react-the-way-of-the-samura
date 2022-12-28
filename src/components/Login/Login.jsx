@@ -11,7 +11,7 @@ import {
 import { Input, createField } from "../common/FormControls/FormControls";
 import formControlsStyleClasses from "../common/FormControls/FormControls.module.css";
 
-const LoginForm = ({ handleSubmit, error }) => {
+const LoginForm = ({ handleSubmit, error, captchaURL }) => {
   return (
     <form onSubmit={handleSubmit}>
       {createField(
@@ -36,6 +36,8 @@ const LoginForm = ({ handleSubmit, error }) => {
         "checkbox",
         "Remember me"
       )}
+      {captchaURL && <img src={captchaURL} alt=""/>}
+      {captchaURL && createField("Symbols from a image", "captcha", [requiredField], Input, "text")}
       {error && (
         <div className={`${formControlsStyleClasses.summaryError}`}>
           <span>{error}</span>
@@ -53,8 +55,8 @@ const LoginReduxForm = reduxForm({
 })(LoginForm);
 
 const Login = (props) => {
-  const onSubmit = ({ login, password, rememberMe }) => {
-    props.login(login, password, rememberMe);
+  const onSubmit = ({ login, password, rememberMe, captcha }) => {
+    props.login(login, password, rememberMe, captcha);
   };
 
   if (props.isAuth) {
@@ -64,7 +66,7 @@ const Login = (props) => {
   return (
     <div>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} />
+      <LoginReduxForm onSubmit={onSubmit} captchaURL={props.captchaURL} />
     </div>
   );
 };
@@ -72,6 +74,7 @@ const Login = (props) => {
 const mapStateToProps = (state) => ({
   userId: state.authState.userId,
   isAuth: state.authState.isAuth,
+  captchaURL: state.authState.captchaURL,
 });
 
 const LoginContainer = compose(
