@@ -5,44 +5,45 @@ import {
   getProfileThunkCreator,
   getUserStatusThunkCreator,
   updateUserStatusThunkCreator,
+  savePhotoThunkCreator
 } from "../../redux/profileReducer";
 import withAuthRedirect from "../../hoc/AuthRedirect";
 import { compose } from "redux";
 import withRouter from "../../hoc/withRouter";
 
 class ProfileAPI extends React.Component {
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.router.params.userId;
-
-    if (!userId) {
-      userId = this.props.authorizedUserId;
-
-      if (!userId) {
-        this.props.history.push("/login");
-      }
-    }
 
     this.props.getProfile(userId);
     this.props.getUserStatus(userId);
   }
 
-  render() {
-    /* console.log("Render the profile page"); */
+  componentDidMount() {
+    this.refreshProfile();
+  }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.router.params.userId != this.props.router.params.userId) {
+      this.refreshProfile();
+    }
+  }
+
+  render() {
     return (
       <Profile
         {...this.props}
+        isOwner={this.props.router.params.userId == this.props.authorizedUserId}
         status={this.props.status}
         getUserStatus={this.props.getUserStatus}
         updateUserStatus={this.props.updateUserStatus}
+        savePhoto={this.props.savePhoto}
       />
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  /* console.log("mapStateToProps call for the profile page"); */
-
   return {
     profileInfo: state.profileState.profileInfoState,
     status: state.profileState.status,
@@ -56,6 +57,7 @@ const ProfileContainer = compose(
     getProfile: getProfileThunkCreator,
     getUserStatus: getUserStatusThunkCreator,
     updateUserStatus: updateUserStatusThunkCreator,
+    savePhoto: savePhotoThunkCreator,
   }),
   withRouter,
   withAuthRedirect

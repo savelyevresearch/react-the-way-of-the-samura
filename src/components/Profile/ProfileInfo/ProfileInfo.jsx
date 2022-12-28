@@ -5,8 +5,25 @@ import profileInfoStyleClasses from "./ProfileInfo.module.css";
 
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
+import userPhoto from "../../../assets/imgs/userAvatar.png";
+import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
 
-const ProfileInfo = ({ profileInfo, status, getUserStatus, updateUserStatus }) => {
+const ProfileInfo = ({
+  profileInfo,
+  status,
+  getUserStatus,
+  updateUserStatus,
+  isOwner,
+  savePhoto,
+}) => {
+  const onAvatarPhotoSelected = (event) => {
+    const inputFiles = event.target.files;
+
+    if (inputFiles.length) {
+      savePhoto(inputFiles[0]);
+    }
+  };
+
   if (!profileInfo) {
     return <Preloader />;
   }
@@ -20,7 +37,12 @@ const ProfileInfo = ({ profileInfo, status, getUserStatus, updateUserStatus }) =
         height={400}
       />
       <div className={profileInfoStyleClasses.descriptionBlock}>
-        <img src={profileInfo.photos.large} />
+        <img
+          width="150"
+          height="150"
+          src={profileInfo.photos.large || userPhoto}
+        />
+        {isOwner && <input type="file" onChange={onAvatarPhotoSelected} />}
         <br />
         {profileInfo.fullName}
         <br />

@@ -4,6 +4,7 @@ const ADD_POST = "profileReducer/ADD-POST";
 const REMOVE_POST = "profileReducer/REMOVE-POST";
 const SET_USER_PROFILE = "profileReducer/SET-USER-PROFILE";
 const SET_USER_STATUS = "profileReducer/SET-USER-STATUS";
+const SET_USER_PHOTO = "profileReducer/SET-USER-PHOTO";
 
 const profileState = {
   profileInfoState: null,
@@ -69,6 +70,12 @@ const profileReducer = (state = profileState, action) => {
         status: action.status,
       };
     }
+    case SET_USER_PHOTO: {
+      return {
+        ...state,
+        profileInfoState: { ...state.profileInfoState, photos: action.photos },
+      };
+    }
     default:
       return state;
   }
@@ -92,6 +99,11 @@ export const removePostActionCreator = (postId) => ({
 export const setUserStatusAC = (status) => ({
   type: SET_USER_STATUS,
   status,
+});
+
+export const setUserPhotoAC = (photos) => ({
+  type: SET_USER_PHOTO,
+  photos,
 });
 
 export const getProfileThunkCreator = (userId) => async (dispatch) => {
@@ -120,6 +132,20 @@ export const updateUserStatusThunkCreator = (status) => async (dispatch) => {
 
     if (response.data.resultCode === 0) {
       dispatch(setUserStatusAC(status));
+    } else {
+      console.log("The resultCode property is equal to 1");
+    }
+  } catch (error) {
+    console.error(`Something went wrong (request error): ${error.message}`);
+  }
+};
+
+export const savePhotoThunkCreator = (file) => async (dispatch) => {
+  try {
+    const response = await profileAPI.savePhoto(file);
+
+    if (response.data.resultCode == 0) {
+      dispatch(setUserPhotoAC(response.data.data.photos));
     } else {
       console.log("The resultCode property is equal to 1");
     }
