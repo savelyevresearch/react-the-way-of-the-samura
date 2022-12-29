@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import classNames from "classnames";
+
 import paginatorStyleClasses from "./Paginator.module.css";
 
 const Paginator = ({
@@ -47,10 +49,9 @@ const Paginator = ({
               onClick={(event) => {
                 onPageNumberChange(pageNumber);
               }}
-              className={`${
-                pageNumber == currentPage && paginatorStyleClasses.selectedPage
-              } ${paginatorStyleClasses.pageNumber}
-              `}
+              className={classNames(paginatorStyleClasses.pageNumber, {
+                [paginatorStyleClasses.selectedPage]: currentPage == pageNumber,
+              })}
             >
               {pageNumber}
             </span>
