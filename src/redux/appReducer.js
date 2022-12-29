@@ -2,6 +2,7 @@ import { authMeThunkCreator } from "./authReducer";
 
 const appState = {
   initialized: false,
+  globalError: null,
 };
 
 const appReducer = (state = appState, action) => {

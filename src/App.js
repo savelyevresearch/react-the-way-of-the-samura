@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate , Route, Routes } from "react-router-dom";
 
 import "./App.css";
 
@@ -25,8 +25,22 @@ const ProfileContainer = React.lazy(() =>
 );
 
 class App extends React.Component {
+  catchAllUnhandledErrors(promiseRejectionEvent) {
+    console.error(`
+      Some error is occured:
+        - Reason: ${promiseRejectionEvent.reason}
+        - Rejected promise: ${promiseRejectionEvent.promise}
+    `);
+  }
+
   componentDidMount() {
     this.props.initializeApp();
+
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
 
   render() {
@@ -41,13 +55,19 @@ class App extends React.Component {
           <NavbarContainer />
           <div className="app-wrapper-content">
             <Routes>
+              <Route path="/" element={<Navigate to={`/profile/${this.props.authorizedUserId}`} />} />
               <Route path="/profile/:userId" element={<ProfileContainer />} />
               <Route path="/dialogs" element={<DialogsContainer />} />
               <Route path="/users" element={<UsersContainer />} />
               <Route path="/news" element={<News />} />
               <Route path="/music" element={<Music />} />
               <Route path="/settings" element={<Settings />} />
+              <Route
+                path="/login/facebook"
+                element={<div>Facebook</div>}
+              />
               <Route path="/login" element={<LoginContainer />} />
+              <Route path="*" element={<div>404</div>} />
             </Routes>
           </div>
         </BrowserRouter>
@@ -58,6 +78,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   initialized: state.appState.initialized,
+  authorizedUserId: state.authState.userId,
 });
 
 export default compose(

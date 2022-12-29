@@ -14,7 +14,7 @@ import withRouter from "../../hoc/withRouter";
 
 class ProfileAPI extends React.Component {
   refreshProfile() {
-    let userId = this.props.router.params.userId;
+    const userId = this.props.router.params.userId;
 
     this.props.getProfile(userId);
     this.props.getUserStatus(userId);
